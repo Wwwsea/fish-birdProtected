@@ -1,0 +1,42 @@
+// 自定义分词器
+PUT article_div
+{
+  "settings" : {
+    "analysis": {
+      "analyzer": {
+        "text_anlyzer": {
+          "tokenizer": "ik_max_word"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "all": {
+        "type": "text",
+        "analyzer": "text_anlyzer"
+      },
+      "articleTitle": {
+        "type": "text",
+        "analyzer": "text_anlyzer",
+        "copy_to": "all"
+      },
+      "articleContent": {
+        "type": "text",
+        "analyzer": "text_anlyzer",
+        "copy_to": "all"
+      },
+      "isDelete": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "integer"
+      }
+    }
+  }
+}
+
+GET /article

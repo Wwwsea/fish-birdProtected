@@ -1,0 +1,180 @@
+server:
+  port: 8080
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+  security:
+    jwt:
+      key: jwt-key
+      # jwt 的有效时间（天）
+      expire: 7
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/birdProtectedF2?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  data:
+    redis:
+      # redis 端口
+      port: 6379
+      # redis 地址
+      host: 127.0.0.1
+      # redis 密码
+      password: 123456
+      # redis连接超时时间（毫秒）
+      timeout: 10000
+      # 数据库索引，默认为0
+      database: 1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  rabbitmq:
+    # rabbitmq 地址
+    host: 127.0.0.1
+    # rabbitmq 端口
+    port: 5672
+    # rabbitmq 用户名
+    username: guest
+    # rabbitmq 密码
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true #是否开启消费者重试
+          max-attempts: 3 #最大重试次数
+          initial-interval: 6000 #重试间隔时间（单位毫秒）
+          multiplier: 2 #间隔时间乘子，间隔时间*乘子=下一次的间隔时间，最大不能超过设置的最大间隔时间
+          max-interval: 10000 #重试最大时间间隔（单位毫秒）
+    # 队列名称
+    queue:
+      article: article_queue
+      email: email_queue
+      log-login: log_login_queue
+      log-system: log_system_queue
+    # 交换机名称
+    exchange:
+      article: article_exchange
+      email: email_exchange
+      log: log_exchange
+    # 路由键
+    routingKey:
+      article: article_key
+      email: email_routing_key
+      log-login: log_routing_key_login
+      log-system: log_routing_key_system
+  mail:
+    host: smtp.qq.com
+    username: 2735106716@qq.com # 邮件发送账号
+    password: mtjtcbmkriaedgeg # 邮件发送账号密钥
+    chat-gpt:
+      email:  2667657399@qq.com
+      password: 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
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  quartz:
+    # 将 Quartz 持久化方式修改为 jdbc
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            # 实例节点 ID 自动生成
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            dataSource: quartz_jobs
+          dataSource:
+            quartz_jobs:
+              driver: com.mysql.cj.jdbc.Driver
+              URL: jdbc:mysql://localhost:3306/birdprotectedf2?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+              user: root
+              password: root
+  elasticsearch:
+    username: elastic       #若没有开启es的安全策略，则无需配置用户名与密码
+    socketTimeout: 30000
+    uris: 127.0.0.1:9200
+    password: PiZTELYbYiv=3Djywdvd
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 逻辑删除
+      logic-delete-field: isDeleted
+      # 逻辑删除值
+      logic-delete-value: 1
+      # 逻辑未删除值
+      logic-not-delete-value: 0
+      # id 自增
+      id-type: auto
+# springdoc-openapi项目配置，访问 http://127.0.0.1:8080/doc.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.fish.birdProducted
+oauth:
+  #代表用户使用 gitee/gitHub 应用进行身份验证
+  # gitee 登录
+  gitee:
+    client-id: 9e50828a55d121fbea25d4e85911e993e790b75c30fdb7650e9e28b9036046c5
+    client-secret: 742ed0845845304c6bc5a89e5eeb5b75bf384b8d3bebd90f4f2103c77ae98db8
+    redirect-uri: http://127.0.0.1:8080/oauth/gitee/callback
+
+  # github 登录
+  github:
+    client-id: 24a919ec3c6da9f19ac7
+    client-secret: cf3539c604396da3aa1f929a349d7e9785255441
+    redirect-uri: http://127.0.0.1:8080/oauth/github/callback
+web:
+  index:
+    # 网站前端首页
+    path: http://127.0.0.1:6060/
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+http_pool:
+  max_total: 200
+  default_max_per_route: 100
+  connect_timeout: 5000
+  connection_request_timeout: 1000
+  socket_timeout: 65000
+  validate_after_inactivity: 2000
+# 连接 minio
+minio:
+  endpoint: http://127.0.0.1:9005
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: test
+
+
+# 搜索模式 可选 elasticsearch、mysql
+search:
+  mode: elasticsearch
+# elasticsearch配置
+elasticsearch:
+  username: elastic
+  password: PiZTELYbYiv=3Djywdvd
+  hostname: 127.0.0.1
+  port: 9200
+  scheme: https
+  connTimeout: 1000
+  socketTimeout: 30000
+  connectionRequestTimeout: 5000

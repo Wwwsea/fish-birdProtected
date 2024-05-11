@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fish.birdProducted.mapper.ArticleMapper">
+    <select id="searchArticle" resultType="com.fish.birdProducted.domain.vo.ArticleSearchVO">
+        SELECT id,
+        article_title,
+        article_content,
+        is_deleted,
+        `status`
+        FROM t_article
+        <where>
+            is_deleted = 0 and `status` = 1
+            <if test="keyword!=null">
+                and (article_title like concat('%',#{keyword},'%')
+                or article_content like concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </select>
+</mapper>
