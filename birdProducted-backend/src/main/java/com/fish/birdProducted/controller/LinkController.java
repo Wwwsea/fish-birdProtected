@@ -52,7 +52,7 @@ public class LinkController {
         return ControllerUtils.messageHandler(() -> linkService.getLinkList());
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:link:list')")
+    @PreAuthorize("hasAnyAuthority('bird:link:list')")
     @Operation(summary = "后台友链列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="友链管理",operation= LogConst.GET)
@@ -61,7 +61,7 @@ public class LinkController {
         return ControllerUtils.messageHandler(() -> linkService.getBackLinkList(null));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:link:search')")
+    @PreAuthorize("hasAnyAuthority('bird:link:search')")
     @Operation(summary = "搜索后台友链列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="友链管理",operation= LogConst.SEARCH)
@@ -70,7 +70,7 @@ public class LinkController {
         return ControllerUtils.messageHandler(() -> linkService.getBackLinkList(searchDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:link:isCheck')")
+    @PreAuthorize("hasAnyAuthority('bird:link:isCheck')")
     @Operation(summary = "修改友链是否通过")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="友链管理",operation= LogConst.UPDATE)
@@ -79,7 +79,7 @@ public class LinkController {
         return linkService.isCheckLink(linkIsCheckDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:link:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:link:delete')")
     @Operation(summary = "删除友链")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="友链管理",operation= LogConst.DELETE)

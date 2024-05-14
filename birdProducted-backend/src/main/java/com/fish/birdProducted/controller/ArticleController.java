@@ -118,7 +118,7 @@ public class ArticleController {
         return ControllerUtils.messageHandler(() -> null);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:publish:article')")
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "上传文章封面")
     @Parameter(name = "articleCover", description = "文章封面")
     @LogAnnotation(module = "文章管理", operation = LogConst.UPLOAD_IMAGE)
@@ -128,7 +128,7 @@ public class ArticleController {
         return articleService.uploadArticleCover(articleCover);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:publish:article')")
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "发布文章")
     @Parameter(name = "articleDTO", description = "文章信息")
     @LogAnnotation(module = "文章管理", operation = LogConst.INSERT)
@@ -138,7 +138,7 @@ public class ArticleController {
         return articleService.publish(articleDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:publish:article')")
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "删除文章封面")
     @Parameter(name = "articleCover", description = "文章封面")
     @LogAnnotation(module = "发布错误", operation = LogConst.DELETE)
@@ -148,7 +148,7 @@ public class ArticleController {
         return articleService.deleteArticleCover(articleCoverUrl);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:publish:article')")
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "上传文章图片")
     @Parameters({
             @Parameter(name = "articleImage", description = "文章图片"),
@@ -163,8 +163,8 @@ public class ArticleController {
         return articleService.uploadArticleImage(articleImage);
     }
 
-//    @PreAuthorize("hasAnyAuthority('blog:article:list')")
-    @Operation(summary = "获取所有的文章列表")
+//    @PreAuthorize("hasAnyAuthority('bird:article:list')")
+    @Operation(summary = "后台获取所有的文章列表")
     @LogAnnotation(module = "文章管理", operation = LogConst.GET)
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping("/back/list")
@@ -172,7 +172,7 @@ public class ArticleController {
         return ControllerUtils.messageHandler(() -> articleService.listArticle());
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:article:search')")
+    @PreAuthorize("hasAnyAuthority('bird:article:search')")
     @Operation(summary = "后端搜索文章列表")
     @Parameters({
             @Parameter(name = "searchArticleDTO", description = "搜索文章信息", required = true)
@@ -185,7 +185,7 @@ public class ArticleController {
     }
 
     // {"code":200,"msg":"success","data":[{"id":41,"articleTitle":"非洲鸵鸟","articleContent":"## <span style='color:#f47466'>测试</span>文件","isDeleted":null,"status":null},{"id":42,"articleTitle":"test","articleContent":"## 还是一篇<span style='color:#f47466'>测试</span>文章","isDeleted":null,"status":null}]}
-//    @PreAuthorize("hasAnyAuthority('blog:article:search')")
+//    @PreAuthorize("hasAnyAuthority('bird:article:search')")
     @Operation(summary = "前端搜索文章列表")
     @Parameters({
             @Parameter(name = "keyword", description = "搜素关键词", required = true)
@@ -197,7 +197,7 @@ public class ArticleController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('blog:article:update')")
+    @PreAuthorize("hasAnyAuthority('bird:article:update')")
     @Operation(summary = "修改文章状态")
     @Parameters({
             @Parameter(name = "id", description = "文章id", required = true),
@@ -213,7 +213,7 @@ public class ArticleController {
         return articleService.updateStatus(id, status);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:article:update')")
+    @PreAuthorize("hasAnyAuthority('bird:article:update')")
     @Operation(summary = "修改文章是否顶置")
     @Parameters({
             @Parameter(name = "id", description = "文章id", required = true),
@@ -229,7 +229,7 @@ public class ArticleController {
         return articleService.updateIsTop(id, isTop);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:article:echo')")
+    @PreAuthorize("hasAnyAuthority('bird:article:echo')")
     @Operation(summary = "回显文章数据")
     @Parameters({
             @Parameter(name = "id", description = "文章id", required = true)
@@ -241,7 +241,7 @@ public class ArticleController {
         return ControllerUtils.messageHandler(() -> articleService.getArticleDTO(id));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:article:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:article:delete')")
     @Operation(summary = "删除文章")
     @Parameters({
             @Parameter(name = "id", description = "文章id", required = true)

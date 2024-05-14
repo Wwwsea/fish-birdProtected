@@ -11,7 +11,7 @@
     <groupId>com.fish.birdProducted</groupId>
     <artifactId>birdProducted-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>blog-backend</name>
+    <name>birdProducted-backend</name>
     <description>birdProducted-backend</description>
     <properties>
         <java.version>17</java.version>
@@ -183,11 +183,11 @@
             </dependency>-->
 
         <!-- configuration-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
 
     </dependencies>
 

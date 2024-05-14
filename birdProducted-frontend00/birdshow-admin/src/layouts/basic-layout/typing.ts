@@ -9,7 +9,7 @@ export type Key = string | number
 export interface CateDateItem {
   // 唯一id
   id?: string | number
-   // 父级菜单的id
+  // 父级菜单的id
   parentId?: string | number | null
   categoryName?: string
   biologyBranch?: string

@@ -2,9 +2,10 @@
 import type {Ref, UnwrapRef} from 'vue'
 import {h} from 'vue'
 import type {TableColumnsType} from 'ant-design-vue'
-import {deleteRouteMenusApi, getRouteMenuByIdApi, getMenusApi, searchMenusApi} from '~/api/common/menu.ts'
-import type {MenuData} from '~/layouts/basic-layout/typing.ts'
-import {MenuDataItem} from "~/pages/system/menu/type.ts";
+import {  searchMenusApi} from '~/api/common/menu.ts'
+import { birdcategoriesList, searchCategoryById, searchCategory, deleteCategoryByIds } from '~/api/bird/birdCate'
+import type {MenuData,CateDate} from '~/layouts/basic-layout/typing.ts'
+import {CateDataItem} from "~/pages/bird/birdCate/type.ts";
 import modal from './modal.vue'
 import {message} from "ant-design-vue";
 
@@ -19,61 +20,57 @@ const modalTitle = ref<string>()
 
 const formState = reactive({
   username: '',
-  status: undefined
+  biologyBranch: undefined
 })
 
+
 async function onFinish(values: any) {
-  if (values.username === '' && values.status === undefined) {
-    refreshFunc()
-    return
+// +++++
+  const submitData = {
+    ...values,
   }
+
   isLoading.value = true
-  const {data} = await searchMenusApi(1, values.username, values.status)
+  const { data } = await searchCategory(submitData)
   isLoading.value = false
-  menuDataList.value = data as any
+  cateDataList.value = data as any
+  refreshFunc()
+
 }
 
 function onFinishFailed(errorInfo: any) {
   console.log('出现错误:', errorInfo)
 }
 
-const columns = ref<TableColumnsType>([
+const cateColumns = ref<TableColumnsType>([
   {
-    title: '菜单名称',
-    dataIndex: 'title',
+    title: '分类名',
+    dataIndex: 'categoryName',
     width: '10%',
     align: 'center',
   },
   {
-    title: '图标',
-    dataIndex: 'icon',
-    width: '2%',
-    key: 'icon',
-    align: 'center',
-  },
-  {
-    title: '排序',
-    dataIndex: 'orderNum',
-    width: '2%',
-    align: 'center',
-  },
-  {
-    title: '组件路径',
-    dataIndex: 'component',
+    title: '分类下文章数量',
+    dataIndex: 'articleCount',
     width: '10%',
     align: 'center',
   },
   {
-    title: '状态',
-    dataIndex: 'isDisable',
-    key: 'isDisable',
-    width: '5%',
+    title: '生物分支',
+    dataIndex: 'biologyBranch',
+    width: '10%',
     align: 'center',
   },
   {
     title: '创建时间',
     dataIndex: 'createTime',
-    width: '14%',
+    width: '10%',
+    align: 'center',
+  },
+  {
+    title: '修改时间',
+    dataIndex: 'updateTime',
+    width: '10%',
     align: 'center',
   },
   {
@@ -81,36 +78,39 @@ const columns = ref<TableColumnsType>([
     key: 'operation',
     width: '10%',
     align: 'center',
-  },
+  }
 ])
 
 onMounted(() => {
   getMenuList()
 })
 // 元数据
-const menuData = ref()
+const cateDate = ref()
+
 // 构建好的树形数据
-const menuDataList: Ref<UnwrapRef<MenuData>> = ref([])
-// 上级菜单数据
-const newMenuData = ref()
+const cateDataList: Ref<UnwrapRef<CateDate>> = ref([])
+// 上级分类数据
+const newCateData = ref()
 
 /**
- * 获取菜单列表
+ * 获取分类列表
  */
 async function getMenuList() {
-  const {data} = await getMenusApi(1) as any
-  menuData.value = data
-  menuDataList.value = buildTree(data)
-  newMenuData.value = buildTree(data)
+  const {data} = await birdcategoriesList() as any
+  cateDate.value = data
+  cateDataList.value = buildTree(data)
+  console.log("cateDataList.value::",cateDataList.value)
+  newCateData.value = buildTree(data)
   isLoading.value = false
 }
+
 
 /**
  * 构建树形数据
  * @param data 原始数据
  */
-function buildTree(data: MenuDataItem[]) {
-  let tree = data.filter(item => item.parentId === null);
+function buildTree(data: CateDataItem[]) {
+  let tree = data.filter(item => item.parentId === null || item.parentId === 0);
   tree.forEach(root => {
     root.key = root.id
     let children = buildChildren(root, data);
@@ -126,7 +126,7 @@ function buildTree(data: MenuDataItem[]) {
  * @param parent 父节点
  * @param data 原始数据
  */
-function buildChildren(parent: MenuDataItem, data: MenuDataItem[]) {
+function buildChildren(parent: CateDataItem, data: CateDataItem[]) {
   let children = data.filter(item => item.parentId === parent.id);
   children.forEach(child => {
     child.key = child.id
@@ -141,15 +141,14 @@ function buildChildren(parent: MenuDataItem, data: MenuDataItem[]) {
 // 展开的行
 const expand = ref({
   expandedRowKeys: <any>([]),
-  flag: false
-})
+  flag: false})
 
 function onExpandAll() {
   if (expand.value.flag) {
     expand.value.expandedRowKeys = []
     expand.value.flag = false
   } else {
-    expand.value.expandedRowKeys = menuData.value.map(item => item.id)
+    expand.value.expandedRowKeys = cateDate.value.map(item => item.id)
     expand.value.flag = true
   }
 }
@@ -183,10 +182,10 @@ function refreshFunc() {
 const showModal = (flag: string) => {
   if (flag === 'add') {
     modalType.value = 0
-    modalTitle.value = '添加菜单'
+    modalTitle.value = '添加分类'
   } else if (flag === 'update') {
     modalType.value = 1
-    modalTitle.value = '修改菜单'
+    modalTitle.value = '修改分类'
   }
 
   modalOpen.value = true;
@@ -209,16 +208,15 @@ function handleAddSuccess() {
 
 const formData = ref()
 // 弹窗标识：0：新增 1：修改 2：删除
-const modalType: Ref<UnwrapRef<number | null>> = ref(null)
+const modalType: Ref<UnwrapRef<number | null >> = ref(null)
 
 /**
  * 修改
  */
 async function updateMenu(id: string) {
-  const {data} = await getRouteMenuByIdApi(id);
-  if (!data.roleId) data.roleId = undefined
+  const {data} = await searchCategoryById(id);
   formData.value = data
-  console.log("formData________",data)
+  console.log("update----formData.value+++++:",formData.value)
   showModal('update')
 }
 
@@ -229,53 +227,30 @@ function addMenu(flag: string, parentId?: string) {
   const form = {
     // id
     id: '',
-    // 上级菜单
+    // 上级分类
     parentId: '',
-    // 菜单标题
-    title: '',
-    // 显示顺序
-    orderNum: 0,
-    // 角色id
-    roleId: undefined,
-    // 菜单图标
-    icon: '',
-    // 路由类型
-    routerType: 0,
-    // 组件路径
-    component: '',
-    // 重定向地址
-    redirect: '',
-    // 内嵌网页地址
-    url: '',
-    // 访问地址
-    path: '',
-    // 跳转模式
-    target: '',
-    // 固定标签
-    affix: 0,
-    // 是否保活
-    keepAlive: 1,
-    // 显示状态
-    hideInMenu: 0,
-    // 菜单状态
-    isDisable: 0,
+    // 分类标题
+    categoryName: '',
+    // 生物分支
+    biologyBranch: '',
   }
-  if (parentId !== undefined) {
+  if (parentId !== undefined || !parentId.equal('0')) {
     form.parentId = parentId
   }
+  console.log("add----formData.value+++++:",formData.value)
   formData.value = form
   showModal(flag)
 }
 
 /**
- * 删除
+ * 删除 √
  */
-async function deleteMenu(id: string) {
-  const data = await deleteRouteMenusApi(id).catch(res => {
+async function deleteMenu (id: string) {
+  const data = await deleteCategoryByIds(id).catch(res => {
     message.warn(res)
   })
   if (data.code === 200) {
-    message.success('菜单删除成功')
+    message.success('分类删除成功')
     refreshFunc()
   }
 }
@@ -291,19 +266,22 @@ async function deleteMenu(id: string) {
   >
     <template #form-items>
       <a-form-item
-          label="菜单名称"
+          label="分类名称"
           name="username"
       >
-        <a-input v-model:value="formState.username" placeholder="请输入菜单名称"/>
+        <a-input v-model:value="formState.username" placeholder="请输入分类名称"/>
       </a-form-item>
 
-      <a-form-item label="状态" name="status" style="width: 240px">
-        <a-select v-model:value="formState.status" placeholder="菜单状态">
+      <a-form-item label="状态" name="biologyBranch" style="width: 240px">
+        <a-select v-model:value="formState.biologyBranch" placeholder="分类状态">
           <a-select-option :value="0">
-            正常
+            目
           </a-select-option>
           <a-select-option :value="1">
-            停用
+            科
+          </a-select-option>
+          <a-select-option :value="2">
+            属
           </a-select-option>
         </a-select>
       </a-form-item>
@@ -328,8 +306,8 @@ async function deleteMenu(id: string) {
     <template #table-content>
       <div>
         <a-table
-            :columns="columns"
-            :data-source="menuDataList"
+            :columns="cateColumns"
+            :data-source="cateDataList"
             :expanded-row-keys="expand.expandedRowKeys"
             @expand="handleExpand"
             :loading="isLoading"
@@ -362,27 +340,15 @@ async function deleteMenu(id: string) {
                 </a-button>
               </a-popconfirm>
             </template>
-            <template v-else-if="column.key === 'isDisable'">
-              <template v-if="record.isDisable">
-                <a-tag color="green">正常</a-tag>
-              </template>
-              <template v-else>
-                <a-tag color="red">停用</a-tag>
-              </template>
-            </template>
-            <template v-else-if="column.key === 'icon'">
-              <!-- 图标 -->
-              <component :is="record.icon"/>
-            </template>
           </template>
         </a-table>
       </div>
-      <template v-if="menuDataList.length > 0">
+      <template v-if="cateDataList.length > 0">
         <modal :modalOpen="modalOpen"
                :modalTitle="modalTitle"
                @update:modalOpen="handleModalOpenUpdate"
                @add:success="handleAddSuccess"
-               :menuData="newMenuData"
+               :cateData="newCateData"
                :formData="formData"
                :modalType="modalType"
         />

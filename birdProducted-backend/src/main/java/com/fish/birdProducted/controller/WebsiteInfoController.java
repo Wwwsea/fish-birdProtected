@@ -39,7 +39,7 @@ public class WebsiteInfoController {
      * @param avatar 头像
      * @return 访问url
      */
-    @PreAuthorize("hasAnyAuthority('blog:update:websiteInfo')")
+    @PreAuthorize("hasAnyAuthority('bird:update:websiteInfo')")
     @Operation(summary = "上传站长头像")
     @Parameter(name = "avatar", description = "头像")
     @AccessLimit(seconds = 60, maxCount = 5)
@@ -54,7 +54,7 @@ public class WebsiteInfoController {
      * @param background 背景图
      * @return 访问url
      */
-    @PreAuthorize("hasAnyAuthority('blog:update:websiteInfo')")
+    @PreAuthorize("hasAnyAuthority('bird:update:websiteInfo')")
     @Operation(summary = "上传站长资料卡背景")
     @Parameter(name = "background", description = "资料卡片背景")
     @AccessLimit(seconds = 60, maxCount = 5)
@@ -68,7 +68,7 @@ public class WebsiteInfoController {
      * 查询网站信息
      * @return 网站信息
      */
-    @PreAuthorize("hasAnyAuthority('blog:get:websiteInfo')")
+    @PreAuthorize("hasAnyAuthority('bird:get:websiteInfo')")
     @Operation(summary = "查看网站信息-后端")
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping
@@ -92,7 +92,7 @@ public class WebsiteInfoController {
      * @param stationmasterInfoDTO 站长信息
      * @return 是否成功
      */
-    @PreAuthorize("hasAnyAuthority('blog:update:websiteInfo')")
+    @PreAuthorize("hasAnyAuthority('bird:update:websiteInfo')")
     @Operation(summary = "修改或创建站长信息")
     @Parameter(name = "stationmasterInfoDTO", description = "站长信息")
     @PostMapping("/stationmaster")
@@ -105,7 +105,7 @@ public class WebsiteInfoController {
      * @param websiteInfoDTO 网站信息
      * @return 是否成功
      */
-    @PreAuthorize("hasAnyAuthority('blog:update:websiteInfo')")
+    @PreAuthorize("hasAnyAuthority('bird:update:websiteInfo')")
     @Operation(summary = "修改或创建网站信息")
     @Parameter(name = "websiteInfoDTO", description = "网站信息")
     @PostMapping("/webInfo")

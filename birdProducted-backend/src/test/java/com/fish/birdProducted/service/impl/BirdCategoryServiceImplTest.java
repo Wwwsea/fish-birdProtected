@@ -63,10 +63,9 @@ class BirdCategoryServiceImplTest {
     @Test
     void addOrUpdateBirdCategory() {
         BirdCategoryDTO birdCategoryDTO = new BirdCategoryDTO();
-        birdCategoryDTO.setId(19L);
-        birdCategoryDTO.setCategoryName("tttestCate01");
-        birdCategoryDTO.setBiologyBranch("tttestBranch01");
-        birdCategoryDTO.setParentId(18);
+        birdCategoryDTO.setCategoryName("3333");
+        birdCategoryDTO.setBiologyBranch("333");
+        birdCategoryDTO.setParentId(19);
         categoryService.addOrUpdateBirdCategory(birdCategoryDTO);
 
         listAllCategory();

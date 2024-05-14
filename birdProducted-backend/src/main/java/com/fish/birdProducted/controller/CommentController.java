@@ -65,7 +65,7 @@ public class CommentController {
         return commentService.userComment(commentDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:comment:list')")
+    @PreAuthorize("hasAnyAuthority('bird:comment:list')")
     @Operation(summary = "后台评论列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="评论管理",operation= LogConst.GET)
@@ -74,7 +74,7 @@ public class CommentController {
         return ControllerUtils.messageHandler(() -> commentService.getBackCommentList(null));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:comment:search')")
+    @PreAuthorize("hasAnyAuthority('bird:comment:search')")
     @Operation(summary = "搜索后台评论列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="评论管理",operation= LogConst.SEARCH)
@@ -83,7 +83,7 @@ public class CommentController {
         return ControllerUtils.messageHandler(() -> commentService.getBackCommentList(searchDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:comment:isCheck')")
+    @PreAuthorize("hasAnyAuthority('bird:comment:isCheck')")
     @Operation(summary = "修改评论是否通过")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="评论管理",operation= LogConst.UPDATE)
@@ -92,7 +92,7 @@ public class CommentController {
         return commentService.isCheckComment(commentIsCheckDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:comment:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:comment:delete')")
     @Operation(summary = "删除评论")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="评论管理",operation= LogConst.DELETE)

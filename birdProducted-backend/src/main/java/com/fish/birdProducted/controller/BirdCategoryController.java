@@ -48,7 +48,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "获取分类列表")
-    @PreAuthorize("hasAnyAuthority('blog:category:list')")
+    @PreAuthorize("hasAnyAuthority('bird:category:list')")
     @LogAnnotation(module="分类管理",operation= LogConst.GET)
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping("/back/list")
@@ -57,7 +57,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "搜索分类列表")
-    @PreAuthorize("hasAnyAuthority('blog:category:search')")
+    @PreAuthorize("hasAnyAuthority('bird:category:search')")
     @LogAnnotation(module="分类管理",operation= LogConst.SEARCH)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PostMapping("/back/search")
@@ -66,7 +66,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "根据id查询分类")
-    @PreAuthorize("hasAnyAuthority('blog:category:search')")
+    @PreAuthorize("hasAnyAuthority('bird:category:search')")
     @LogAnnotation(module="分类管理",operation= LogConst.GET)
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping("/back/get/{id}")
@@ -75,7 +75,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "新增分类-分类列表")
-    @PreAuthorize("hasAnyAuthority('blog:category:add')")
+//    @PreAuthorize("hasAnyAuthority('bird:category:add')")
     @LogAnnotation(module="分类管理",operation= LogConst.INSERT)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PutMapping("/back/add")
@@ -84,7 +84,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "修改分类")
-    @PreAuthorize("hasAnyAuthority('blog:category:update')")
+    @PreAuthorize("hasAnyAuthority('bird:category:update')")
     @LogAnnotation(module="分类管理",operation= LogConst.UPDATE)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PostMapping("/back/update")
@@ -93,7 +93,7 @@ public class BirdCategoryController {
     }
 
     @Operation(summary = "删除分类")
-    @PreAuthorize("hasAnyAuthority('blog:category:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:category:delete')")
     @LogAnnotation(module="分类管理",operation= LogConst.DELETE)
     @AccessLimit(seconds = 60, maxCount = 30)
     @DeleteMapping("/back/delete")

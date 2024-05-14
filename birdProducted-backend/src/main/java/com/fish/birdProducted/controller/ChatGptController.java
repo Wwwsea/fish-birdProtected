@@ -80,7 +80,7 @@ public class ChatGptController {
         return chatGptService.deleteChat(id);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:chatGpt:list')")
+    @PreAuthorize("hasAnyAuthority('bird:chatGpt:list')")
     @Operation(summary = "后台聊天列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="聊天管理",operation= LogConst.GET)
@@ -89,7 +89,7 @@ public class ChatGptController {
         return ControllerUtils.messageHandler(() -> chatGptService.getBackChatGptList(null));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:chatGpt:search')")
+    @PreAuthorize("hasAnyAuthority('bird:chatGpt:search')")
     @Operation(summary = "搜索后台聊天列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="聊天管理",operation= LogConst.SEARCH)
@@ -98,7 +98,7 @@ public class ChatGptController {
         return ControllerUtils.messageHandler(() -> chatGptService.getBackChatGptList(searchDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:chatGpt:isCheck')")
+    @PreAuthorize("hasAnyAuthority('bird:chatGpt:isCheck')")
     @Operation(summary = "修改聊天是否通过")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="聊天管理",operation= LogConst.UPDATE)
@@ -107,7 +107,7 @@ public class ChatGptController {
         return chatGptService.isCheckChatGpt(chatGptIsCheckDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:chatGpt:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:chatGpt:delete')")
     @Operation(summary = "删除聊天")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="聊天管理",operation= LogConst.DELETE)

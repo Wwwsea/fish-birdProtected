@@ -41,7 +41,7 @@ public class TagController {
     }
 
     @Operation(summary = "新增标签-文章列表")
-    @PreAuthorize("hasAnyAuthority('blog:tag:add')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:add')")
     @LogAnnotation(module="标签管理",operation= LogConst.INSERT)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PutMapping()
@@ -50,7 +50,7 @@ public class TagController {
     }
 
     @Operation(summary = "获取标签列表")
-    @PreAuthorize("hasAnyAuthority('blog:tag:list')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:list')")
     @LogAnnotation(module="标签管理",operation= LogConst.GET)
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping("/back/list")
@@ -59,7 +59,7 @@ public class TagController {
     }
 
     @Operation(summary = "搜索标签列表")
-    @PreAuthorize("hasAnyAuthority('blog:tag:search')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:search')")
     @LogAnnotation(module="标签管理",operation= LogConst.SEARCH)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PostMapping("/back/search")
@@ -68,7 +68,7 @@ public class TagController {
     }
 
     @Operation(summary = "根据id查询标签")
-    @PreAuthorize("hasAnyAuthority('blog:tag:search')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:search')")
     @LogAnnotation(module="标签管理",operation= LogConst.GET)
     @AccessLimit(seconds = 60, maxCount = 30)
     @GetMapping("/back/get/{id}")
@@ -77,7 +77,7 @@ public class TagController {
     }
 
     @Operation(summary = "新增标签-标签列表")
-    @PreAuthorize("hasAnyAuthority('blog:tag:add')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:add')")
     @LogAnnotation(module="标签管理",operation= LogConst.INSERT)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PutMapping("/back/add")
@@ -86,7 +86,7 @@ public class TagController {
     }
 
     @Operation(summary = "修改标签")
-    @PreAuthorize("hasAnyAuthority('blog:tag:update')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:update')")
     @LogAnnotation(module="标签管理",operation= LogConst.UPDATE)
     @AccessLimit(seconds = 60, maxCount = 30)
     @PostMapping("/back/update")
@@ -95,7 +95,7 @@ public class TagController {
     }
 
     @Operation(summary = "删除标签")
-    @PreAuthorize("hasAnyAuthority('blog:tag:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:tag:delete')")
     @LogAnnotation(module="标签管理",operation= LogConst.DELETE)
     @AccessLimit(seconds = 60, maxCount = 30)
     @DeleteMapping("/back/delete")

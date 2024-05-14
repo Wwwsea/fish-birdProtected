@@ -57,7 +57,7 @@ public class LeaveWordController {
         return leaveWordService.userLeaveWord(content);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:leaveword:list')")
+    @PreAuthorize("hasAnyAuthority('bird:leaveword:list')")
     @Operation(summary = "后台留言列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="留言管理",operation= LogConst.GET)
@@ -66,7 +66,7 @@ public class LeaveWordController {
         return ControllerUtils.messageHandler(() -> leaveWordService.getBackLeaveWordList(null));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:leaveword:search')")
+    @PreAuthorize("hasAnyAuthority('bird:leaveword:search')")
     @Operation(summary = "搜索后台留言列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="留言管理",operation= LogConst.SEARCH)
@@ -75,7 +75,7 @@ public class LeaveWordController {
         return ControllerUtils.messageHandler(() -> leaveWordService.getBackLeaveWordList(searchDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:leaveword:isCheck')")
+    @PreAuthorize("hasAnyAuthority('bird:leaveword:isCheck')")
     @Operation(summary = "修改留言是否通过")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="留言管理",operation= LogConst.UPDATE)
@@ -84,7 +84,7 @@ public class LeaveWordController {
         return leaveWordService.isCheckLeaveWord(leaveWordIsCheckDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:leaveword:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:leaveword:delete')")
     @Operation(summary = "删除留言")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="留言管理",operation= LogConst.DELETE)

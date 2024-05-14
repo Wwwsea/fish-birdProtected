@@ -78,7 +78,7 @@ public class FavoriteController {
         return ControllerUtils.messageHandler((() -> favoriteService.isFavorite(type, typeId)));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:favorite:list')")
+    @PreAuthorize("hasAnyAuthority('bird:favorite:list')")
     @Operation(summary = "后台收藏列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="收藏管理",operation= LogConst.GET)
@@ -87,7 +87,7 @@ public class FavoriteController {
         return ControllerUtils.messageHandler(() -> favoriteService.getBackFavoriteList(null));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:favorite:search')")
+    @PreAuthorize("hasAnyAuthority('bird:favorite:search')")
     @Operation(summary = "搜索后台收藏列表")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="收藏管理",operation= LogConst.SEARCH)
@@ -96,7 +96,7 @@ public class FavoriteController {
         return ControllerUtils.messageHandler(() -> favoriteService.getBackFavoriteList(searchDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:favorite:isCheck')")
+    @PreAuthorize("hasAnyAuthority('bird:favorite:isCheck')")
     @Operation(summary = "修改收藏是否通过")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="收藏管理",operation= LogConst.UPDATE)
@@ -105,7 +105,7 @@ public class FavoriteController {
         return favoriteService.isCheckFavorite(favoriteIsCheckDTO);
     }
 
-    @PreAuthorize("hasAnyAuthority('blog:favorite:delete')")
+    @PreAuthorize("hasAnyAuthority('bird:favorite:delete')")
     @Operation(summary = "删除收藏")
     @AccessLimit(seconds = 60, maxCount = 30)
     @LogAnnotation(module="收藏管理",operation= LogConst.DELETE)

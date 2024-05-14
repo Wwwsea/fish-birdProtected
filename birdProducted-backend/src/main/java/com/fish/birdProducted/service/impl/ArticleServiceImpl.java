@@ -43,6 +43,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private CategoryMapper categoryMapper;
 
     @Resource
+    private BirdCategoryMapper birdCategoryMapper;
+
+    @Resource
     private ArticleTagMapper articleTagMapper;
 
     @Resource
@@ -318,7 +321,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 .orderByDesc(Article::getCreateTime)).stream().map(article -> article.asViewObject(ArticleListVO.class)).toList();
         if (!articleListVOS.isEmpty()) {
             articleListVOS.forEach(articleListVO -> {
-                articleListVO.setCategoryName(categoryMapper.selectById(articleListVO.getCategoryId()).getCategoryName());
+//                articleListVO.setCategoryName(categoryMapper.selectById(articleListVO.getCategoryId()).getCategoryName());
+                articleListVO.setCategoryName(birdCategoryMapper.selectById(articleListVO.getCategoryId()).getCategoryName());
+                
                 articleListVO.setUserName(userMapper.selectById(articleListVO.getUserId()).getUsername());
                 // 查询文章标签
                 List<Long> tagIds = articleTagMapper.selectList(new LambdaQueryWrapper<ArticleTag>()

@@ -37,6 +37,7 @@ watch(() => props.formData, (val) => {
 })
 
 const treeData = computed(() => {
+  console.log('formData:::::::::', props.formData)
   return convertDataStructure(props.menuData as MenuDataItem[])
 })
 
