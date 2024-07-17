@@ -23,7 +23,7 @@ import java.util.Objects;
  * (Log)表服务实现类
  *
  * @author fish
- * @since 2023-2-2 09:12:32
+ * @since 2024-2-2 09:12:32
  */
 @Service("logService")
 public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements LogService {

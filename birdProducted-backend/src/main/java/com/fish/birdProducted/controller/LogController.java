@@ -24,7 +24,7 @@ import com.fish.birdProducted.constants.LogConst;
  * (LoginLog)表控制层
  *
  * @author fish
- * @since 2023-2-08 14:38:43
+ * @since 2024-2-08 14:38:43
  */
 @Tag(name = "操作日志相关接口")
 @RestController

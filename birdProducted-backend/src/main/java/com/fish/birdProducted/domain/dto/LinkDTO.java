@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.BaseData;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/11/14 8:52
+ * 创建时间：2024/3/14 8:52
  */
 @Data
 public class LinkDTO implements BaseData {
@@ -19,10 +19,10 @@ public class LinkDTO implements BaseData {
     @Length(max = 50, message = "网站地址不能超过50个字符")
     private String url;
     //网站描述
-    @Length(max = 30, message = "网站描述不能超过30个字符")
+    @Length(max = 100, message = "网站描述不能超过30个字符")
     private String description;
     //网站背景
-    @Length(max = 100, message = "网站背景不能超过100个字符")
+    @Length(max = 180, message = "网站背景不能超过100个字符")
     private String background;
     //邮箱地址
     @Email

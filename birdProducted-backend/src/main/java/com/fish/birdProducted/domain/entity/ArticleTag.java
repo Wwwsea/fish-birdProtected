@@ -16,7 +16,7 @@ import java.util.Date;
  * (ArticleTag)表实体类
  *
  * @author fish
- * @since 2023-10-15 02:29:13
+ * @since 2024-2-15 02:29:13
  */
 @SuppressWarnings("serial")
 @Data

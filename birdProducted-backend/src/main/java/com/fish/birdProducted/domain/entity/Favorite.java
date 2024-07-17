@@ -16,7 +16,7 @@ import java.util.Date;
  * (Favorite)表实体类
  *
  * @author fish
- * @since 2023-2-18 14:12:23
+ * @since 2024-2-18 14:12:23
  */
 @Data
 @Builder

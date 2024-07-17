@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.Article;
 import com.fish.birdProducted.domain.response.ResponseResult;
 import com.fish.birdProducted.domain.vo.WebsiteInfoVO;
 import com.fish.birdProducted.mapper.ArticleMapper;
-import com.fish.birdProducted.mapper.CategoryMapper;
+import com.fish.birdProducted.mapper.BirdCategoryMapper;
 import com.fish.birdProducted.mapper.CommentMapper;
 import com.fish.birdProducted.mapper.WebsiteInfoMapper;
 import com.fish.birdProducted.service.WebsiteInfoService;
@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  * (WebsiteInfo)表服务实现类
  *
  * @author fish
- * @since 2023-2-27 14:07:34
+ * @since 2024-2-27 14:07:34
  */
 @Slf4j
 @Service("websiteInfoService")
@@ -45,7 +45,7 @@ public class WebsiteInfoServiceImpl extends ServiceImpl<WebsiteInfoMapper, Websi
     private ArticleMapper articleMapper;
 
     @Resource
-    private CategoryMapper categoryMapper;
+    private BirdCategoryMapper categoryMapper;
 
     @Resource
     private CommentMapper commentMapper;

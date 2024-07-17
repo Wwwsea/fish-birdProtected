@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.BaseData;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/25 14:00
+ * 创建时间：2024/2/25 14:00
  * 用户评论DTO
  */
 @Data

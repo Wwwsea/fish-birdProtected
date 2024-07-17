@@ -29,7 +29,7 @@ import java.util.Objects;
  * (LoginLog)表服务实现类
  *
  * @author fish
- * @since 2023-2-08 14:38:44
+ * @since 2024-2-08 14:38:44
  */
 @Slf4j
 @Service("loginLogService")
@@ -49,35 +49,39 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
 
     @Override
     public void loginLog(HttpServletRequest request, String userName, Integer state, String message) {
-        String browserName = BrowserUtil.browserName(request);
-        String ipAddress = IpUtils.getIpAddr(request);
-        String os = BrowserUtil.osName(request);
-        String realAddressByIP = AddressUtils.getRealAddressByIP(ipAddress);
-        int requestType;
-        String typeHeader = request.getHeader(Const.TYPE_HEADER);
-        if (StringUtils.isNotEmpty(typeHeader) && typeHeader.equals(Const.FRONTEND_REQUEST)) {
-            requestType = 0;
-        } else if (StringUtils.isNotEmpty(typeHeader) && typeHeader.equals(Const.BACKEND_REQUEST)) {
-            requestType = 1;
-        } else {
-            requestType = 2;
-        }
-        if (userName == null) {
-            userName = "未知用户";
-        }
-        LoginLog logEntity = LoginLog.builder()
-                .userName(userName)
-                .ip(ipAddress)
-                .address(realAddressByIP)
-                .browser(browserName)
-                .os(os)
-                .type(requestType)
-                .state(state)
-                .message(message)
-                .build();
+        try {
+            String browserName = BrowserUtil.browserName(request);
+            String ipAddress = IpUtils.getIpAddr(request);
+            String os = BrowserUtil.osName(request);
+            String realAddressByIP = AddressUtils.getRealAddressByIP(ipAddress);
+            int requestType;
+            String typeHeader = request.getHeader(Const.TYPE_HEADER);
+            if (StringUtils.isNotEmpty(typeHeader) && typeHeader.equals(Const.FRONTEND_REQUEST)) {
+                requestType = 0;
+            } else if (StringUtils.isNotEmpty(typeHeader) && typeHeader.equals(Const.BACKEND_REQUEST)) {
+                requestType = 1;
+            } else {
+                requestType = 2;
+            }
+            if (userName == null) {
+                userName = "未知用户";
+            }
+            LoginLog logEntity = LoginLog.builder()
+                    .userName(userName)
+                    .ip(ipAddress)
+                    .address(realAddressByIP)
+                    .browser(browserName)
+                    .os(os)
+                    .type(requestType)
+                    .state(state)
+                    .message(message)
+                    .build();
 
-        rabbitTemplate.convertAndSend(exchange, routingKey, logEntity);
-        log.info("{}", "发送登录日志信息--rabbitMQ");
+            rabbitTemplate.convertAndSend(exchange, routingKey, logEntity);
+            log.info("发送登录日志信息到RabbitMQ");
+        } catch (Exception e) {
+            log.error("发送登录日志信息到RabbitMQ时发生异常: {}", e.getMessage());
+        }
     }
 
     @Override

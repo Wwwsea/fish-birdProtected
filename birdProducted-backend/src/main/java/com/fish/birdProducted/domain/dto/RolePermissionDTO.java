@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/7 20:18
+ * 创建时间：2024/2/7 20:18
  */
 @Data
 public class RolePermissionDTO {

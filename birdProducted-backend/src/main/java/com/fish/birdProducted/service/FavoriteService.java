@@ -14,7 +14,7 @@ import java.util.List;
  * (Favorite)表服务接口
  *
  * @author fish
- * @since 2023-2-18 14:12:25
+ * @since 2024-2-18 14:12:25
  */
 public interface FavoriteService extends IService<Favorite> {
 

@@ -6,8 +6,11 @@
   import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
   const route = useRoute();
   const id = route.params.id;
-  
-
+  import {
+    getThreeDImage
+  } from "@/apis/article";
+  import {ElMessage} from "element-plus";
+  import router from "@/router";
 
   let camera: THREE.PerspectiveCamera;
   let renderer: THREE.WebGLRenderer;
@@ -40,14 +43,22 @@
     animate();
   }
 
-  onMounted(() => {
+  let data = ref(null);
+  let texturesURL = ref(null);
+
+  onMounted(async () => {
     initThree();
+    let response = await getThreeDImage(id)
+    texturesURL = response.data
+    if(!texturesURL)
+      router.push({path: '/exception'})
 
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load("http://127.0.0.1:9005/test/article/threeD/bird-orange/scene.gltf", (gltf) => {
+    gltfLoader.load(`http://127.0.0.1:9005/test/article/threeD/${id}/scene.gltf`, (gltf) => {
       const model = gltf.scene;
       model.traverse((obj) => {
-        let imgTexture = new THREE.TextureLoader().load("http://127.0.0.1:9005/test/article/threeD/bird-orange/textures/BirdOrange_LMB_baseColor.png");
+        let imgTexture = new THREE.TextureLoader().load(texturesURL);
+        console.log("id: ",id,"  URL22=========",texturesURL)
         //调整纹理图的方向
         imgTexture.flipY = false;
         const material = new THREE.MeshBasicMaterial({ map: imgTexture });

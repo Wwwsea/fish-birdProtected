@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/4 9:42
+ * 创建时间：2024/2/4 9:42
  */
 @Data
 public class RoleDeleteDTO {

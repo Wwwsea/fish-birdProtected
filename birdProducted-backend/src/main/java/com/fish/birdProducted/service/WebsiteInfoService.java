@@ -14,7 +14,7 @@ import com.fish.birdProducted.enums.UploadEnum;
  * (WebsiteInfo)表服务接口
  *
  * @author fish
- * @since 2023-2-27 14:07:34
+ * @since 2024-2-27 14:07:34
  */
 public interface WebsiteInfoService extends IService<WebsiteInfo> {
 

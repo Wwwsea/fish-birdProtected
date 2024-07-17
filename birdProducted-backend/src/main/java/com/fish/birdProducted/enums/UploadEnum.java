@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/27 14:20
+ * 创建时间：2024/2/27 14:20
  * 文件上传枚举
  */
 @Getter
@@ -22,8 +22,8 @@ public enum UploadEnum {
     ARTICLE_COVER("article/articleCover/", "鸟信息封面", List.of("jpg", "jpeg", "png")),
     // 鸟美图
     ARTICLE_IMAGE("article/articleImage/", "鸟新鲜美图", List.of("jpg", "jpeg", "png","gif")),
-    // 3D图像
-    IMAGE_3D("article/3DImage/", "3D图像", List.of("png", "txt", "bin","gltf","dir","zip"));
+    // 3D图像license.txt, scene.bin,scene.gltf,
+    IMAGE_3D("article/threeD/", "3D图像", List.of("png", "txt", "bin","gltf","dir","zip"));
 
 
 

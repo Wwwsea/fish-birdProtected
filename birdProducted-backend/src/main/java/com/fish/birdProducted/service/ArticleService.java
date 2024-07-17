@@ -15,7 +15,7 @@ import java.util.List;
  * (Article)表服务接口
  *
  * @author fish
- * @since 2023-10-15 02:29:13
+ * @since 2024-2-15 02:29:13
  */
 public interface ArticleService extends IService<Article> {
     /**

@@ -1,3 +1,4 @@
+// 通过指令的方式来实现元素加载过渡效果
 const DISTANCE = 100;
 const DURATION = 500;
 
@@ -24,7 +25,7 @@ function isBelowViewport(el: HTMLElement){
 
 export default {
     mounted(el: HTMLElement){
-        if(!isBelowViewport){
+        if(!isBelowViewport){   //只有当元素在视口top值下面的时候才会触发animate
             return
         }
         const animation = el.animate([

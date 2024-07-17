@@ -5,6 +5,7 @@ import com.fish.birdProducted.domain.dto.SearchArticleDTO;
 import com.fish.birdProducted.domain.response.ResponseResult;
 import com.fish.birdProducted.domain.vo.*;
 import com.fish.birdProducted.service.ArticleService;
+import com.fish.birdProducted.service.ThreeDService;
 import com.fish.birdProducted.utils.ControllerUtils;
 import io.minio.Result;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/15 2:57
+ * 创建时间：2024/10/15 2:57
  */
 @RestController
 @Tag(name = "文章相关接口")
@@ -37,6 +38,9 @@ public class ArticleController {
 
     @Resource
     private ArticleService articleService;
+
+    @Resource
+    private ThreeDService threeDService;
 
     @Operation(summary = "获取所有的文章列表")
     @AccessLimit(seconds = 60, maxCount = 10)
@@ -73,6 +77,13 @@ public class ArticleController {
     public ResponseResult<ArticleDetailVO> detail(@PathVariable("id") @NotNull Integer id) {
         return ControllerUtils.messageHandler((() -> articleService.getArticleDetail(id)));
     }
+    @Operation(summary = "获取文章3D模型链接")
+    @Parameter(name = "id", description = "文章id", required = true)
+    @AccessLimit(seconds = 60, maxCount = 60)
+    @GetMapping("/threeD/{id}")
+    public ResponseResult<String> texturesImage(@PathVariable("id") @NotNull Integer id) {
+        return ControllerUtils.messageHandler((() -> threeDService.texturesImage(id)));
+    }
 
     @Operation(summary = "相关文章信息")
     @Parameters({
@@ -88,7 +99,7 @@ public class ArticleController {
         return ControllerUtils.messageHandler((() -> articleService.relatedArticleList(categoryId, articleId)));
     }
 
-    @Operation(summary = "获取时间轴数据")
+    @Operation(summary = "获取灭绝动物时间轴数据")
     @AccessLimit(seconds = 60, maxCount = 15)
     @GetMapping("/timeLine")
     public ResponseResult<List<TimeLineVO>> timeLine() {
@@ -118,6 +129,17 @@ public class ArticleController {
         return ControllerUtils.messageHandler(() -> null);
     }
 
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
+    @Operation(summary = "上传鸟类3D模型")
+    @Parameter(name = "threeDImage", description = "上传鸟类3D模型")
+    @LogAnnotation(module = "文章管理", operation =  LogConst.UPLOAD_IMAGE)
+    @AccessLimit(seconds = 60, maxCount = 5)
+    @PostMapping("/upload/threeDImage")
+    public ResponseResult<String> uploadThreeDImage(@RequestParam("threeDImage") MultipartFile threeDImage) {
+        return threeDService.uploadThreeDImage(threeDImage);
+    }
+
+    // 上传文件 √
     @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "上传文章封面")
     @Parameter(name = "articleCover", description = "文章封面")
@@ -149,6 +171,16 @@ public class ArticleController {
     }
 
     @PreAuthorize("hasAnyAuthority('bird:publish:article')")
+    @Operation(summary = "删除3D模型")
+    @Parameter(name = "articleCover", description = "3D模型")
+    @LogAnnotation(module = "发布错误", operation = LogConst.DELETE)
+    @AccessLimit(seconds = 60, maxCount = 30)
+    @GetMapping("/delete/threeDImage")
+    public ResponseResult<Void> deleteThreeDModel(@RequestParam("threeDUrl") String threeDUrl) {
+        return threeDService.deleteThreeDImage(threeDUrl);
+    }
+
+    @PreAuthorize("hasAnyAuthority('bird:publish:article')")
     @Operation(summary = "上传文章图片")
     @Parameters({
             @Parameter(name = "articleImage", description = "文章图片"),
@@ -172,7 +204,7 @@ public class ArticleController {
         return ControllerUtils.messageHandler(() -> articleService.listArticle());
     }
 
-    @PreAuthorize("hasAnyAuthority('bird:article:search')")
+//    @PreAuthorize("hasAnyAuthority('bird:article:search')")
     @Operation(summary = "后端搜索文章列表")
     @Parameters({
             @Parameter(name = "searchArticleDTO", description = "搜索文章信息", required = true)

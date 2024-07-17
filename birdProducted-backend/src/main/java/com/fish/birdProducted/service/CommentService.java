@@ -17,7 +17,7 @@ import java.util.List;
  * (Comment)表服务接口
  *
  * @author fish
- * @since 2023-10-19 15:44:57
+ * @since 2024-2-19 15:44:57
  */
 public interface CommentService extends IService<Comment> {
     /**

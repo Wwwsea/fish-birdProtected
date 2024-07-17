@@ -16,7 +16,7 @@ import java.util.List;
  * (Role)表服务接口
  *
  * @author fish
- * @since 2023-10-13 15:02:40
+ * @since 2024-2-13 15:02:40
  */
 public interface RoleService extends IService<Role> {
     /**

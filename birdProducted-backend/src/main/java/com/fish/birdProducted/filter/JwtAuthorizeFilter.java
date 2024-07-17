@@ -20,7 +20,8 @@ import java.io.IOException;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/11 20:32
+ * 创建时间：2024/2/11 20:32
+ * @content jwt认证
  */
 @Component
 public class JwtAuthorizeFilter extends OncePerRequestFilter {
@@ -29,10 +30,13 @@ public class JwtAuthorizeFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         // 提取 Header
         String authorization = request.getHeader("Authorization");
+        System.out.println("1111111完成jwt认证");
         // 解析jwt
         DecodedJWT jwt = jwtUtils.resolveJwt(authorization);
 
@@ -47,6 +51,7 @@ public class JwtAuthorizeFilter extends OncePerRequestFilter {
             // 验证通过，设置上下文中
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+        // 继续过滤器链
         filterChain.doFilter(request, response);
     }
 }

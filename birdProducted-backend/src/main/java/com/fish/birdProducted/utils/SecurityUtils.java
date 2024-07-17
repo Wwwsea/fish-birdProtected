@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/12 0:01
- *
+ * 创建时间：2024/2/12 0:01
  * Security获取相关信息工具类
  */
 public class SecurityUtils {

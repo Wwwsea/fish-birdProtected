@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/21 17:09
+ * 创建时间：2024/2/21 17:09
  */
 @Slf4j
 @Service
@@ -72,9 +72,7 @@ public class OauthServiceImpl implements OauthService {
                             + authUser.getToken().getAccessToken()
                             + "&user_name="+authUser.getUsername();
                 case 2:
-                    return "?login_type=github&access_token="
-                            +authUser.getToken().getAccessToken()
-                            +"&user_name="+authUser.getUsername();
+                    return null;
             }
         }else{
             return authResponse.getMsg();

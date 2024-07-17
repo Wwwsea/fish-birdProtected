@@ -17,6 +17,7 @@ import vSlideIn from '@/directives/vSlideIn.ts'
 
 // 获取应用实例对象
 const app = createApp(App)
+
 app.directive('slide-in',vSlideIn)
 // 安装自定义插件
 app.use(gloablComponent)

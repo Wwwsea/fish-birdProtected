@@ -12,7 +12,7 @@ import com.fish.birdProducted.domain.vo.PageVO;
  * (Log)表服务接口
  *
  * @author fish
- * @since 2023-2-2 09:12:32
+ * @since 2024-2-2 09:12:32
  */
 public interface LogService extends IService<Log> {
     /**

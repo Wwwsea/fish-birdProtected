@@ -1,18 +1,14 @@
 package com.fish.birdProducted.service.impl;
 
 import com.fish.birdProducted.domain.dto.BirdCategoryDTO;
-import com.fish.birdProducted.domain.dto.CategoryDTO;
 import com.fish.birdProducted.domain.dto.SearchBirdCategoryDTO;
 import com.fish.birdProducted.domain.vo.BirdCategoryVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author:fish
@@ -39,17 +35,14 @@ class BirdCategoryServiceImplTest {
         birdCategoryDTO.setBiologyBranch("tttestBranch");
         birdCategoryDTO.setParentId(18);
         categoryService.addBirdCategory(birdCategoryDTO);
-
-        CategoryDTO categoryDTO = new CategoryDTO();
-        categoryDTO.setCategoryName("testCate");
-        categoryDTO.setId(11L);
 //        cc.addCategory(categoryDTO);
     }
 
     @Test
     void searchBirdCategory() {
         SearchBirdCategoryDTO searchDto = new SearchBirdCategoryDTO();
-        searchDto.setCategoryName("testCate");
+        searchDto.setCategoryName("鸵鸟目");
+        searchDto.setBiologyBranch("目");
         List<BirdCategoryVO> res = categoryService.searchBirdCategory(searchDto);
         System.out.println("res: "+res);
     }

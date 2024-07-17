@@ -3,7 +3,7 @@ package com.fish.birdProducted.constants;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/29 8:33
+ * 创建时间：2024/2/29 8:33
  * 网站基本信息
  */
 public class WebsiteInfoConst {

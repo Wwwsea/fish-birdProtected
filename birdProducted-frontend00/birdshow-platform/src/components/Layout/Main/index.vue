@@ -8,12 +8,12 @@ defineProps({
   // 是否有侧边栏
   isSideBar: {
     type: Boolean,
-    default: false
+    default: true
   },
   // 上边距
   marginTop: {
     type: String,
-    default: '0'
+    default: '10'
   }
 })
 </script>
@@ -43,7 +43,8 @@ defineProps({
 <style scoped lang="scss">
 
 .div_container {
-  @media screen and (max-width: 1200px) {
+  padding: 1rem;
+  @media screen and (max-width: 2800px) {
     margin: 0;
   }
   // 过渡效果
@@ -51,27 +52,33 @@ defineProps({
   margin: 0 10%;
   height: 100%;
   display: flex;
+  flex-direction: row; /* 横向布局 */
+  justify-content: center; /* 主轴居中对齐 */
+  align-items: flex-start; /* 侧轴顶部对齐 */
   padding-bottom: 2rem;
 }
 
 .content_container {
-  width: 100%;
+  margin-left: 0em;
+  width: 80%;
   height: 100%;
+  //width: 70%; /* 占据 70% 的宽度 */
   transition: padding 0.5s;
   //border: red 1px solid;
   @media screen and (max-width: 910px) {
     padding: 0.2rem;
   }
-  padding: 1rem;
+  padding: 1.8rem;
   background-color: var(--el-bg-color);
   border-radius: $border-radius;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .information_container {
-  width: 30%;
+  //margin-left: 2em;
+  width: 15%;
   height: 100%;
-  @media screen and (max-width: 910px) {
+  @media screen and (max-width: 100px) {
     display: none;
   }
 

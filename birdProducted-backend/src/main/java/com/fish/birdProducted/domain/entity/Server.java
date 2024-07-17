@@ -54,8 +54,11 @@ public class Server
      */
     private List<SysFile> sysFiles = new LinkedList<SysFile>();
 
-    public void copyTo() throws Exception
-    {
+    /**
+     * 获取所有信息
+     * @throws Exception
+     */
+    public void copyTo() throws Exception {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
 

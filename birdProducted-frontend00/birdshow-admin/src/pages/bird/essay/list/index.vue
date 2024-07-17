@@ -16,6 +16,7 @@ import {
 
 const formData = ref({
   categoryId: undefined,
+  categoryName: undefined,
   tagId: undefined,
   articleTitle: undefined,
   articleType: undefined,
@@ -41,12 +42,32 @@ async function getCategory() {
 
 const value = ref<string[]>([])
 const options = ref<CascaderProps['options']>([])
+// 修改选择不显示分类名称问题
 
 function handleCategoryChange(selectedValue: string[]) {
   // 在这里可以获取用户选择的值
-  formData.value.categoryId = Number.parseInt(selectedValue[2], 10) // 使用十进制进行转换
-  console.log('categoryId:', formData.value.categoryId)
+
+  if (selectedValue.length === 0)
+    return null // 如果数组为空，返回 null 或者适当的默认值
+
+  const selected = selectedValue[selectedValue.length - 1]
+  const cateID = Number.parseInt(selected, 10)
+
+  formData.value.categoryId = cateID
+
+  const categoryName = getCategoryNameById(cateID)
+
+  formData.value.categoryName = categoryName
 }
+
+function getCategoryNameById(categoryId: number): string | null {
+  // 在 birdCateList 数组中查找对应的对象
+  const category = birdCateList.value.find(item => item.id === categoryId)
+
+  // 如果找到了对应的对象，则返回其 categoryName 属性，否则返回 null
+  return category ? category.categoryName : null;
+}
+
 async function fetchData() {
   const { data } = await articleCategoryByTree()
   console.log('ddddd:', data)
@@ -187,7 +208,8 @@ async function refreshFunc() {
 async function onFinish(values: any) {
   loading.value = true
   const { data } = await articleSearch(values)
-  console.log('values00000', values)
+  console.log('查询结果', data)
+
   if (data && data.length > 0) {
     tabData.value = data.map((item: any) => {
       item.isTop = item.isTop === 1
@@ -268,15 +290,8 @@ function onDelete(ids?: string[]) {
       </a-form-item>
       <a-form-item label="分类" name="categoryId" style="margin-right: 1rem">
         <a-space>
-          <!--          <a-select -->
-          <!--            v-if="birdCateList" -->
-          <!--            v-model:value="formData.categoryId" -->
-          <!--            placeholder="选择鸟分类" -->
-          <!--            style="width: 13em" -->
-          <!--            :options="categoryList.map(item => ({ value: item.id, label: item.categoryName }))" -->
-          <!--          /> -->
           <a-cascader
-            v-model:value="formData.categoryId"
+            v-model:value="formData.categoryName"
             :options="options"
             expand-trigger="hover"
             placeholder="选择鸟分类"
@@ -417,7 +432,7 @@ function onDelete(ids?: string[]) {
             {{ record.visitCount }}
           </template>
           <template v-if="column.dataIndex === 'operation'">
-            <a href="http://www.baidu.com" target="_blank">
+            <a :href="`http://localhost:6060/article/${record.id}`" target="_blank">
               <a-button type="link" style="padding: 0">
                 <template #icon>
                   <LinkOutlined />

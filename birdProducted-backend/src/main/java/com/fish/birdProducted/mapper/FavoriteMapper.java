@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.Favorite;
  * (Favorite)表数据库访问层
  *
  * @author fish
- * @since 2023-2-18 14:12:23
+ * @since 2024-2-18 14:12:23
  */
 public interface FavoriteMapper extends BaseMapper<Favorite> {
 

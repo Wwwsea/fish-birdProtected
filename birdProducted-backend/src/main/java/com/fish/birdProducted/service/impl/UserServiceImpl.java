@@ -15,7 +15,6 @@ import com.fish.birdProducted.domain.vo.UserAccountVO;
 import com.fish.birdProducted.domain.vo.UserDetailsVO;
 import com.fish.birdProducted.domain.vo.UserListVO;
 import com.fish.birdProducted.enums.RegisterTypeEnum;
-import com.fish.birdProducted.enums.RequestHeaderEnum;
 import com.fish.birdProducted.enums.RespEnum;
 import com.fish.birdProducted.enums.UrlEnum;
 import com.fish.birdProducted.mapper.*;
@@ -24,7 +23,6 @@ import com.fish.birdProducted.utils.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.*;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,7 +31,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +40,7 @@ import java.util.stream.Collectors;
  * (User)表服务实现类
  *
  * @author fish
- * @since 2023-10-10 19:33:44
+ * @since 2024-10-10 19:33:44
  */
 @Slf4j
 @Service("userService")
@@ -92,6 +89,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private LinkMapper linkMapper;
 
 
+    /**
+     * 重写用户校验接口
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -107,37 +110,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = null;
         // 判断是否第三方登录
         if (typeHeader != null) {
-            // getee
+            // gitee
             if (typeHeader.equals(RegisterTypeEnum.GITEE.getStrategy())) {
                 String result = HttpUtils.sendGet(UrlEnum.GITEE_USER_INFO.getUrl(), "access_token=" + accessToken);
                 JSONObject jsonObject = JSON.parseObject(result);
                 Integer uuid = (Integer) jsonObject.get(SQLConst.ID);
                 user = userMapper.selectById(uuid);
             }
-            // github
-            if (typeHeader.equals(RegisterTypeEnum.GITHUB.getStrategy())) {
-                OkHttpClient client = new OkHttpClient();
-                Headers headers = new Headers.Builder()
-                        .add(RequestHeaderEnum.GITHUB_USER_INFO.getHeader(), RequestHeaderEnum.GITHUB_USER_INFO.getContent())
-                        .add(RespConst.TOKEN_HEADER, RespConst.TOKEN_PREFIX + accessToken)
-                        .build();
-                Request getRequest = new Request.Builder()
-                        .url(UrlEnum.GITHUB_USER_INFO.getUrl())
-                        .method(UrlEnum.GITHUB_USER_INFO.getMethod(), null)
-                        .headers(headers)
-                        .build();
-                try (Response response = client.newCall(getRequest).execute()) {
-                    JSONObject jsonObject;
-                    if (response.body() != null) {
-                        jsonObject = JSON.parseObject(response.body().string());
-                        Integer uuid = (Integer) jsonObject.get(SQLConst.ID);
-                        user = userMapper.selectById(uuid);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
+            // QQ
         } else {
             user = findAccountByNameOrEmail(username);
         }
@@ -254,7 +234,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .nickname(UserConst.DEFAULT_NICKNAME)
                 .username(userRegisterDTO.getUsername())
                 .password(enPassword)
-                // TODO 用户注册类型待完善
                 .registerType(0)
                 .registerIp(ipAddr)
                 .registerAddress(addressByIP)

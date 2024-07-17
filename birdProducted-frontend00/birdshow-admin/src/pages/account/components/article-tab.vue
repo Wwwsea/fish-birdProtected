@@ -34,7 +34,7 @@ const { t } = useI18n()
             <span class="flex items-center">
               <a-avatar :size="20" class="mr-2">
                 <template #icon>
-                  <img src="/logo.svg" alt="">
+                  <img src="/lok.ico" alt="">
                 </template>
               </a-avatar>
               <span style="color: rgb(22, 119, 255);">

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  * (UserRole)表实体类
  *
  * @author fish
- * @since 2023-11-17 16:33:52
+ * @since 2024-3-17 16:33:52
  */
 @Data
 @AllArgsConstructor

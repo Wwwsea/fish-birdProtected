@@ -54,6 +54,7 @@ const tabData = ref([])
 async function refreshFunc(searchData?: { roleName: string | undefined; roleKey: string | undefined }) {
   loading.value = true
   let newData: any = []
+  // 有条件查询
   if (searchData) {
     const { data } = await queryUserNotRole(route.query.id as string, searchData.roleName, searchData.roleKey)
     newData = data

@@ -59,7 +59,7 @@ const handleSearch = () => {
 
 <style scoped>
 .title {
-  color: var(--color-blue);
+  color: var(--bird-color-blue);
   font-size: 1.25rem;
 }
 
@@ -70,7 +70,7 @@ const handleSearch = () => {
   height: 35px;
   width: 100%;
   border: 2px solid #8e8cd8;
-  color: var(--text-color);
+  color: var(--bird-color-blue);
   border-radius: 2rem;
 }
 
@@ -78,7 +78,7 @@ const handleSearch = () => {
   width: 100%;
   font-size: 1rem;
   margin-left: 5px;
-  color: var(--text-color);
+  color: var(--bird-text-color);
   outline: none;
 }
 
@@ -100,7 +100,7 @@ const handleSearch = () => {
 .search-result {
   margin-top: 1rem;
   font-size: 1rem;
-  color: var(--text-color);
+  color: var(--bird-text-color);
 }
 
 .search-title {
@@ -123,6 +123,6 @@ const handleSearch = () => {
 
 .divider {
   margin-top: 1.2rem;
-  border: 2px dashed var(--color-pink-light-a7);
+  border: 2px dashed var(--bird-color-pink);
 }
 </style>

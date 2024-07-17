@@ -23,6 +23,8 @@
     "pinia": "^2.1.6",
     "three": "^0.164.1",
     "vue": "^3.3.4",
+    "vue-power-tree": "^0.0.6",
+    "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.2.4",
     "vue3-danmaku": "^1.6.0"
   },

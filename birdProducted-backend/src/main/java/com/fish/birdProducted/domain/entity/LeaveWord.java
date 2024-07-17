@@ -16,7 +16,7 @@ import java.util.Date;
  * (LeaveWord)表实体类
  *
  * @author fish
- * @since 2023-11-03 15:01:10
+ * @since 2024-2-03 15:01:10
  */
 
 @Data

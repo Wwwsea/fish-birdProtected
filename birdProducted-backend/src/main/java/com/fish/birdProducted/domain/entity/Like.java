@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * (Like)表实体类
  *
  * @author fish
- * @since 2023-10-18 19:41:18
+ * @since 2024-2-18 19:41:18
  */
 @Data
 @AllArgsConstructor

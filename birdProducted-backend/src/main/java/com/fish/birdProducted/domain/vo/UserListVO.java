@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/15 8:43
+ * 创建时间：2024/2/15 8:43
  */
 @Data
 public class UserListVO {
@@ -19,7 +19,7 @@ public class UserListVO {
     private String avatar;
     //用户邮箱
     private String email;
-    //用户注册方式(1邮箱/姓名 2Gitee 3Github)
+    //用户注册方式(1邮箱/姓名 2Gitee 3QQ)
     private Integer registerType;
     // 登录地址
     private String loginAddress;

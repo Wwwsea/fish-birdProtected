@@ -4,9 +4,6 @@
       <!-- 标题 -->
       <p class="artboard">{{ useWebsite?.webInfo?.websiteName }}</p>
     </div>
-    <!-- 波浪 -->
-    <Wave></Wave>
-    <!-- 向下按钮 -->
     <SvgIcon class="arrow-down" name="jt_x" width="50px" height="50px" @click="scrollDown"/>
   </div>
 </template>
@@ -16,17 +13,6 @@
 import useWebsiteStore from "@/store/modules/website.ts";
 
 const useWebsite = useWebsiteStore()
-
-const obj = reactive({
-  output: "",
-  isEnd: false,
-  speed: 300,
-  singleBack: false,
-  sleep: 0,
-  type: "rollback",
-  backSpeed: 100,
-  sentencePause: false,
-});
 
 const scrollDown = () => {
   window.scrollTo({
@@ -62,6 +48,7 @@ const scrollDown = () => {
   top: 15em;
 
   .artboard {
+    padding: 20rem;
     font-family: "Fredericka the Great", Mulish, -apple-system, "PingFang SC", "Microsoft YaHei",
     sans-serif;
     font-size: 3.5em;

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/11 11:44
+ * 创建时间：2024/2/11 11:44
  */
 @Data
 public class LoginLogDTO {

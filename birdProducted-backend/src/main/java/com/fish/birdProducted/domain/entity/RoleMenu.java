@@ -12,7 +12,7 @@ import com.fish.birdProducted.domain.BaseData;
  * (RoleMenu)表实体类
  *
  * @author fish
- * @since 2023-11-28 10:23:15
+ * @since 2024-3-28 10:23:15
  */
 @Data
 @AllArgsConstructor

@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.UserRole;
  * (UserRole)表数据库访问层
  *
  * @author fish
- * @since 2023-11-17 16:33:52
+ * @since 2024-3-17 16:33:52
  */
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 

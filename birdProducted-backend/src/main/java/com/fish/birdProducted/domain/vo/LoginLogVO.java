@@ -10,7 +10,7 @@ import java.util.Date;
  * (LoginLog)表实体类
  *
  * @author fish
- * @since 2023-2-08 14:38:43
+ * @since 2024-2-08 14:38:43
  */
 @Data
 public class LoginLogVO implements Serializable {

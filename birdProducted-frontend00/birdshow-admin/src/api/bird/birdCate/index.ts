@@ -6,10 +6,7 @@ import type { formType } from '~/pages/bird/birdCate/type.ts'
 export async function birdcategoriesList() {
   return useGet('/birdcategories/back/list').catch(msg => message.warn(msg))
 }
-// 查询文章树形分类
-export async function articleCategoryByTree() {
-  return useGet('/birdcategories/list').catch(msg => message.warn(msg))
-}
+
 // 搜索分类
 export async function searchCategory(data: any) {
   return usePost('/birdcategories/back/search', data).catch(msg => message.warn(msg))

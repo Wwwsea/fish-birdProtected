@@ -45,7 +45,7 @@ interface ITeamDataItem {
 const teamData = ref<ITeamDataItem[]>([
   {
     name: 'Antdv Pro',
-    link: '/logo.svg',
+    link: '/lok.ico',
   },
   {
     name: '学习小组',

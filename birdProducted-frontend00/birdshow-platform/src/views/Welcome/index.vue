@@ -8,13 +8,8 @@
     <!-- 左边区域 -->
     <div class="left-card">
       <el-image style="width: 100%;height: 100%" fit="cover"
-                src="https://s11.ax1x.com/2023/09/11/pPgM8O0.jpg"/>
+                src="src/assets/images/login.jpg"/>
     </div>
-<!--    <div class="welcome-title">-->
-<!--      <div>欢迎来到我们的学习平台</div>-->
-<!--      <div style="margin-top: 10px">在这里你可以学习如何使用Java，如何搭建网站，并且与Java大神密切交流</div>-->
-<!--      <div style="margin-top: 5px">在这里你可以同性交友，因为都是男的，没有学Java的女生</div>-->
-<!--    </div>-->
     <!-- 右边区域 -->
     <div class="right-card">
       <router-view v-slot="{Component}">

@@ -44,11 +44,11 @@ const rules = reactive<FormRules<any>>({
   ],
   description: [
     {required: true, message: '请填写网站描述', trigger: 'blur'},
-    {min: 3, max: 30, message: '长度小3，最大15', trigger: 'blur'},
+    {min: 3, max: 100, message: '长度小3，最大100', trigger: 'blur'},
   ],
   background: [
     {required: true, message: '请填写友链背景图链接', trigger: 'blur'},
-    {min: 3, max: 100, message: '长度小3，最大100', trigger: 'blur'},
+    {min: 3, max: 180, message: '长度小3，最大180', trigger: 'blur'},
   ],
   email: [
     {required: true, message: '请填写电子邮件地址', trigger: 'blur'},
@@ -111,14 +111,14 @@ function applyLinkFunc() {
             </el-input>
           </el-form-item>
           <el-form-item prop="description">
-            <el-input v-model="form.description" placeholder="请输入网站描述" maxlength="30" show-word-limit>
+            <el-input v-model="form.description" placeholder="请输入网站描述" maxlength="100" show-word-limit>
               <template #prepend>
                 网站描述
               </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="background">
-            <el-input v-model="form.background" placeholder="请提供http地址" maxlength="100" show-word-limit>
+            <el-input v-model="form.background" placeholder="请提供http地址" maxlength="180" show-word-limit>
               <template #prepend>
                 背景图片
               </template>
@@ -154,7 +154,7 @@ function applyLinkFunc() {
             <span>1、分享自己系统的介绍和链接。</span>
             <span>2、发现更多的优秀鸟类信息分享网站。</span>
             <span style="font-size: 1rem;color: grey">注意：</span>
-            <span>1、友链申请前必须先登录本网站，申请通过后会通过邮件的形式通知你。</span>
+            <span>1、友链申请前必须先登录本网站，申请通过后会通过邮件的形式通知您。</span>
             <span>2、点击网站的名称进行友链跳转。</span>
           </div>
           <div class="link">
@@ -303,7 +303,7 @@ function applyLinkFunc() {
     color: #999;
     display: flex;
     flex-direction: column;
-    background: var(--mao-bg-message);
+    background: var(--bird-bg-message);
     padding: 0.5rem;
     border-radius: $border-radius;
     margin-bottom: 1rem;

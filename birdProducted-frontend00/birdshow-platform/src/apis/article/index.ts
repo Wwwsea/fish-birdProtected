@@ -1,6 +1,12 @@
 import http from "@/utils/http.ts";
 
-
+// 获取3D模型图片地址
+export const getThreeDImage = (id: string | string[]) => {
+    return http.request({
+        url: `/article/threeD/${id}`,
+        method: "get"
+    });
+}
 // 获取文章详细
 export const getArticleDetail = (id: string | string[]) => {
     return http.request({

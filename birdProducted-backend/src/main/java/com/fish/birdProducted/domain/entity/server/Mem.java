@@ -7,8 +7,7 @@ import com.fish.birdProducted.utils.Arith;
  * 
  * @author ruoyi
  */
-public class Mem
-{
+public class Mem {
     /**
      * 内存总量
      */

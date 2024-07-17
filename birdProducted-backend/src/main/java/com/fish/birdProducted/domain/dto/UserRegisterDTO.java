@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 16:43
+ * 创建时间：2024/2/16 16:43
  * 用户注册DTO
  */
 @Data

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 //import org.springframework.data.elasticsearch.annotations.Document;
 /**
  * @author:fish
@@ -52,4 +54,5 @@ public class ArticleSearchVO {
      */
     @Schema(description = "文章状态")
     private Integer status;
+
 }

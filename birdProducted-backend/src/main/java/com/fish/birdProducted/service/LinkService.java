@@ -16,7 +16,7 @@ import java.util.List;
  * (Link)表服务接口
  *
  * @author fish
- * @since 2023-11-14 08:43:35
+ * @since 2024-3-14 08:43:35
  */
 public interface LinkService extends IService<Link> {
 

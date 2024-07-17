@@ -83,12 +83,12 @@ function onFinishFailed(errorInfo: any) {
         <div>
           <template v-if="isList">
             <span>
-              <a-tooltip title="隐藏搜索" @click="isShowForm = !isShowForm">
+              <a-tooltip title="(/ω＼*)隐藏搜索" @click="isShowForm = !isShowForm">
                 <a-button shape="circle" :icon="h(SearchOutlined)" />
               </a-tooltip>
             </span>
             <span style="margin-left: 10px">
-              <a-tooltip title="刷新" @click="refreshFunc">
+              <a-tooltip title="(●'◡'●)刷新" @click="refreshFunc">
                 <a-button shape="circle" :icon="h(ReloadOutlined)" />
               </a-tooltip>
             </span>

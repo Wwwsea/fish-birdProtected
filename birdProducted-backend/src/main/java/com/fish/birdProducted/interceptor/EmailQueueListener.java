@@ -21,12 +21,12 @@ import java.util.Objects;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 20:51
+ * 创建时间：2024/10/16 20:51
  * 邮件队列监听器 消费者
  */
 @Component
 @Slf4j
-@RabbitListener(queues = RabbitConst.MAIL_QUEUE)
+//@RabbitListener(queues = RabbitConst.MAIL_QUEUE, ackMode = "MANUAL")
 public class EmailQueueListener {
 
     @Resource
@@ -37,8 +37,9 @@ public class EmailQueueListener {
 
     /**
      * 监听邮件队列
+     * @RabbitListener 注解会自动ACK 手动确认需添加ackMode = "MANUAL"
      */
-    @RabbitHandler
+    @RabbitListener(queues = RabbitConst.MAIL_QUEUE,concurrency = "5-10",ackMode = "MANUAL" )
     public void handlerMapMessage(Map<String, Object> data, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         String email = (String) data.get("email");
         String code = (String) data.get("code");

@@ -19,7 +19,7 @@
     .left_card {
       width: 20%;
       height: 100%;
-      background: var(--mao-bg-left);
+      background: var(--bird-bg-left);
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
       overflow: hidden;
 
@@ -54,7 +54,7 @@
         height: 77%;
 
         .history_card {
-          background: var(--mao-bg-left-card);
+          background: var(--bird-bg-left-card);
           border-radius: $border-radius;
           margin: 0.5rem;
 
@@ -92,7 +92,7 @@
     .right_card {
       width: 80%;
       height: 100%;
-      background: var(--mao-bg-right);
+      background: var(--bird-bg-right);
       margin-left: 2rem;
       padding-bottom: 5rem;
       padding-top: 2rem;

@@ -1,3 +1,4 @@
+<!--
 <script setup lang="ts">
 import {getRecommendArticleList} from "@/apis/home";
 
@@ -89,4 +90,9 @@ getRecommendArticleList().then(res => {
     color: #409EFF;
   }
 }
-</style>
+</style>-->
+<template>
+
+</template>
+<style></style>
+<script></script>

@@ -12,9 +12,11 @@
 <script setup lang="ts">
 
 const imageList = [
-  "http://127.0.0.1:9005/test/wall/ou1.jpg",
-  "http://127.0.0.1:9005/test/wall/ou2.jpg",
-  "http://127.0.0.1:9005/test/wall/ou3.jpg",
+  "http://127.0.0.1:9005/test/wall/back00.png",
+  "http://127.0.0.1:9005/test/wall/back01.png",
+  "http://127.0.0.1:9005/test/wall/back02.png",
+  "http://127.0.0.1:9005/test/wall/back03.png",
+  "http://127.0.0.1:9005/test/wall/back04.png",
 ]
 </script>
 
@@ -39,7 +41,7 @@ const imageList = [
     background: no-repeat 50% 50% / cover;
     opacity: 0;
     // 一张图片 6s
-    animation: imageAnimation 18s linear infinite 0s;
+    animation: imageAnimation 30s linear infinite 0s;
     backface-visibility: hidden;
     transform-style: preserve-3d;
 
@@ -53,6 +55,12 @@ const imageList = [
 
     &:nth-child(4) {
       animation-delay: 18s;
+    }
+    &:nth-child(5) {
+      animation-delay: 24s;
+    }
+    &:nth-child(6) {
+      animation-delay: 30s;
     }
   }
 

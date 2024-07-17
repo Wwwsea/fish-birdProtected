@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * (RoleMenu)表服务实现类
  *
  * @author fish
- * @since 2023-11-28 10:23:17
+ * @since 2024-3-28 10:23:17
  */
 @Service("roleMenuService")
 public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> implements RoleMenuService {

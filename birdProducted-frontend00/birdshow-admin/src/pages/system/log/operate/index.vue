@@ -297,7 +297,7 @@ const state = reactive<{
         </template>
         清空
       </a-button>
-      <a-button class="orange" @click="message.warn('别点了，有空再写')">
+      <a-button class="orange" @click="message.warn('不会检查日志的程序员 不是一个合格的程序员 ', 10)">
         <template #icon>
           <VerticalAlignBottomOutlined />
         </template>

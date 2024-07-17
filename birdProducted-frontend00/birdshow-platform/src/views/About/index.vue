@@ -132,9 +132,7 @@ function initInformation() {
                   </div>
                 </div>
               </div>
-              <div class="author_desc">
-                <span>全栈开发小白</span>
-              </div>
+
             </div>
           </div>
           <div class="item_content">

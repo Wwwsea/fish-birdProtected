@@ -3,7 +3,7 @@ package com.fish.birdProducted.constants;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 0:01
+ * 创建时间：2024/10/16 0:01
  */
 public class SQLConst {
     /**
@@ -26,6 +26,12 @@ public class SQLConst {
      */
     public static final Integer PUBLIC_ARTICLE = 1;
 
+
+    /**
+     * 没有删除标记
+     */
+    public static final Integer NO_DELETED = 0;
+
     /**
      * 文章状态
      */
@@ -41,9 +47,10 @@ public class SQLConst {
     public static final String ARTICLE_ID = "1";
 
     /**
-     * 文章分类id
+     * 灭绝动物
      */
-    public static final String CATEGORY_ID = "category_id";
+    public static final Integer LIVE_TYPE = 3;
+
 
     /**
      * 评论是否通过(0,否)

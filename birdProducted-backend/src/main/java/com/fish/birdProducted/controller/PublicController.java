@@ -22,7 +22,7 @@ import com.fish.birdProducted.constants.LogConst;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 17:00
+ * 创建时间：2024/10/16 17:00
  * 公共接口
  */
 @RestController

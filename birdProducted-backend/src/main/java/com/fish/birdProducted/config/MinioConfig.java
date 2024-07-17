@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/26 16:01
+ * 创建时间：2024/2/26 16:01
  */
 @Configuration
 public class MinioConfig {

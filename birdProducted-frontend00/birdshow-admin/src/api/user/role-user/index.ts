@@ -17,9 +17,9 @@ export async function queryUserRole(userId: string, roleName?: string, roleKey?:
 }
 
 /**
- * 未分配该用户的角色列表
+ * 未分配给该用户的角色列表
  * @param userId 用户id
- * @param roleName  角色名称
+ * @param roleName 角色名称
  * @param roleKey 角色key
  */
 export async function queryUserNotRole(userId: string, roleName?: string, roleKey?: string) {

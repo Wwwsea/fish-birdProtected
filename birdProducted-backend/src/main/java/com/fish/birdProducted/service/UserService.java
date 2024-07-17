@@ -19,7 +19,7 @@ import java.util.List;
  * (User)表服务接口
  *
  * @author fish
- * @since 2023-10-10 19:33:43
+ * @since 2024-2-10 19:33:43
  */
 public interface UserService extends IService<User>, UserDetailsService {
     /**

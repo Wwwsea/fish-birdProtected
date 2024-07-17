@@ -9,14 +9,11 @@ import {
 import {cancelFavorite, userFavorite, isFavorite} from '@/apis/favorite'
 import {cancelLike, isLike, userLike} from '@/apis/like';
 import DirectoryCard from "./DirectoryCard/index.vue";
-import threeDModel from "./threeDModel/index.vue";
 import {ElMessage} from "element-plus";
 import {Close} from "@element-plus/icons-vue";
 import router from "@/router";
-import useWebsiteStore from "@/store/modules/website.ts";
 import {useColorMode} from "@vueuse/core";
 
-const websiteStore = useWebsiteStore()
 const mode = useColorMode()
 const id = 'preview-only';
 const scrollElement = document.documentElement;
@@ -54,7 +51,14 @@ watch(() => route.params.id, () => {
 
 onMounted(async () => {
   await getArticleDetailById()
-})
+
+  if ($refs.headTitle) {
+    $refs.headTitle.addEventListener('mousemove', handleMouseMove);
+  } else {
+    console.error('Cannot find ref: headTitle');
+  }
+}
+)
 
 
 async function getArticleDetailById() {
@@ -185,6 +189,20 @@ function isLikeFunc() {
 
 const isShowMoveCatalog = ref(false)
 
+const mouseX = ref(0);
+const mouseY = ref(0);
+const backgroundImageOffsetX = ref(0);
+const backgroundImageOffsetY = ref(0);
+
+const handleMouseMove = (event: MouseEvent) => {
+  mouseX.value = event.clientX;
+  mouseY.value = event.clientY;
+
+  backgroundImageOffsetX.value = (mouseX.value / window.innerWidth - 0.5) * 100;
+  backgroundImageOffsetY.value = (mouseY.value / window.innerHeight - 0.5) * 100;
+};
+
+
 </script>
 
 <template>
@@ -193,7 +211,15 @@ const isShowMoveCatalog = ref(false)
       <Header/>
     </template>
     <template #content>
-      <div class="head_title" :style="`background-image: url('${articleDetail.articleCover}')`">
+      <div class="head_title"
+           :style="{
+                    backgroundImage: `url(${articleDetail.articleCover})`,
+                    '--bg-offset-x': `${backgroundImageOffsetX}%`,
+                    '--bg-offset-y': `${backgroundImageOffsetY}%`
+                    }"
+           @mousemove="handleMouseMove"
+           ref="headTitle"
+      >
         <div class="head_title_text">
           <div class="classify">
             <div>{{ articleDetail.categoryName }}</div>
@@ -204,10 +230,10 @@ const isShowMoveCatalog = ref(false)
             <div>字数统计:{{ countMd }}</div>
           </div>
           <div class="statistics">
-            <div>访问量:{{ articleDetail.visitCount }}</div>
+<!--            <div>访问量:{{ articleDetail.visitCount }}</div>-->
             <div>评论数:{{ articleDetail.commentCount }}</div>
             <div>点赞量:{{ articleDetail.likeCount }}</div>
-            <div>收藏量:{{ articleDetail.favoriteCount }}</div>
+<!--            <div>收藏量:{{ articleDetail.favoriteCount }}</div>-->
           </div>
           <div class="time">
             <div>发布：{{ articleDetail.createTime }}</div>
@@ -220,49 +246,30 @@ const isShowMoveCatalog = ref(false)
           <!-- 富文本预览 -->
           <MdPreview :editorId="id" :theme="mode" :modelValue="articleDetail.articleContent" :on-html-changed="mdHtml"/>
         </template>
-        <el-divider border-style="dashed" content-position="left">
-          <div style="display: flex;align-items: center">
-            <svg-icon name="author_statement"></svg-icon>
-            <span style="margin-left: 0.5em">声明</span>
+        <el-divider border-style="dashed" content-position="center">
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <span >感谢观看 </span>
+
           </div>
         </el-divider>
         <div class="threeModel">
           <div class="tipping">
             <div>
               <svg-icon name="threejs"/>
-              <!-- <button @click="$router.push({name:'ThreeDModel',params:{id:111}})">点查看3D模型</button> -->
               <span @click="$router.push({name:'ThreeDModel',params:{id:route.params.id}})">点查看3D模型</span>
             </div>
           </div>
         </div>
-        <!-- 作者著作权 -->
-        <div class="copyright">
-          <div class="author">
-            <svg-icon name="article_author"></svg-icon>
-            <strong>本文作者： 鱼</strong>
-          </div>
-          <div class="link">
-            <svg-icon name="author_link"></svg-icon>
-            <strong>本文链接：</strong>
-            <a href="VITE_SERVE='http://127.0.0.1:6060/{{ $route.path }}">myShrikes/{{ $route.path }}</a>
-          </div>
-          <div class="license">
-            <svg-icon name="author_copyright"></svg-icon>
-            <strong>版权声明： </strong>本站所有文章除特别声明外，均采用
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC
-              BY-NC-SA 4.0</a>
-            许可协议。转载请注明文章出处！
-          </div>
-        </div>
       </div>
       <!-- 尾部标签与点赞收藏分享 -->
-      <div style="display: flex;justify-content: space-between">
+      <div style="display: flex; justify-content: space-between; ">
+
         <div class="tag">
-          <template v-for="tag in articleDetail.tags" :key="tag.id">
-            <div @click="$router.push(`/tags/${tag.id}`)"># {{ tag.tagName }}</div>
+          <template v-for="tag in articleDetail.tags" :key="tag.id"><span style="font-size: 1.4em;">标签：</span>
+            <div @click="$router.push(`/tags/${tag.id}`)" style="margin-right: 2em;"># {{ tag.tagName }}</div>
           </template>
         </div>
-        <div class="like">
+        <div class="like" style="display: flex;">
           <div @click="likeBtn(articleDetail)">
             <SvgIcon v-show="!like" name="like"/>
             <SvgIcon v-show="like" name="like-selected"/>
@@ -280,31 +287,9 @@ const isShowMoveCatalog = ref(false)
         </div>
       </div>
       <div>
-        <div class="tag" style="display: flex;justify-content: left;">
+        <div class="tag" style="display: flex;justify-content: left;"><span style="font-size: 1.4em;">分类：</span>
           <div @click="$router.push(`/category/${articleDetail.categoryId}`)">{{ articleDetail.categoryName }}</div>
         </div>
-      </div>
-      <!-- 打赏 -->
-      <div class="tipping">
-
-        <el-tooltip
-            class="box-item"
-            effect="light"
-            placement="top"
-        >
-          <template #content>
-            <div class="qrCode">
-              <div>
-                TIM/QQ
-                <el-image src="http://127.0.0.1:9005/test/qrcode.jpg"/>
-              </div>
-            </div>
-          </template>
-          <div>
-            <svg-icon name="gift"/>
-            <span>ヾ(≧▽≦*)o！</span>
-          </div>
-        </el-tooltip>
       </div>
       <!-- 上/下 篇文章-->
       <div class="goOn">
@@ -333,28 +318,21 @@ const isShowMoveCatalog = ref(false)
       
       <CardInfo/>
       <div class="threeModel" style="padding-top: 45px">
+        <el-affix :offset="12">
+
           <div class="tipping">
             <div style=" width: 200px;height: 300px;">
               <svg-icon name="threejs"/>
               <span @click="$router.push({name:'ThreeDModel',params:{id:route.params.id}})">点查看3D模型</span>
             </div>
           </div>
-        </div>
-       
-      <Card title="公告" prefixIcon="announcement" suffix-icon="jt_y" :isDithering="true" :isArrow="true">
-          <span @click="$router.push(`/message`)">{{ websiteStore.webInfo?.sidebarAnnouncement }}</span>
-      </Card>
+          <div class="directory" style="margin-top: 2em">
+            <DirectoryCard/>
+          </div>
 
-      <RandomArticle/>
-      <div v-if="articleDetail.categoryId !== ''">
-        <RandomArticle :categoryId="articleDetail.categoryId.toString()" :articleId="route.params.id" title="相关推荐"
-                       prefix-icon="query_tasks" style="margin-bottom: 2em"/>
-      </div>
-      <div>
-        <el-affix :offset="12">
-          <DirectoryCard/>
         </el-affix>
-      </div>
+        </div>
+
     </template>
     <template #footer>
       <Footer/>
@@ -457,9 +435,11 @@ const isShowMoveCatalog = ref(false)
   border-radius: $border-radius;
   height: 40vh;
   width: 100%;
+
   // 调整大小以覆盖整个背景区域
   background-size: cover;
-  background-position: center;
+  //background-position: center;
+  background-position: calc(50% + var(--bg-offset-x)) calc(50% + var(--bg-offset-y));
   background-repeat: no-repeat;
 
   .head_title_text {
@@ -516,11 +496,13 @@ const isShowMoveCatalog = ref(false)
 // 文章底部标签
 .tag {
   font-size: 0.8em;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
 
   div {
-    margin: 0.5rem 0.5rem;
+    margin-right: 2em;
+    //margin: 0.5rem 0.5rem;
     padding: 0.5rem 0.9rem;
     border: 1px solid var(--el-border-color);
     border-radius: 5px;
@@ -567,7 +549,7 @@ const isShowMoveCatalog = ref(false)
   div {
     @include flex;
     color: white;
-    background-color: #eeeeee;
+    background-color: var(--bird-bg-threeD);
     width: 20%;
     border: 1px solid var(--el-border-color);
     height: 2.5em;

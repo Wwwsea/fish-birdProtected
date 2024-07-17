@@ -72,6 +72,13 @@ export const constantRouter = [
             () => import('@/views/Article/index.vue'),
         name: 'article',
     },
+    // 询问页面
+    {
+        path: '/exception',
+        component:
+            () => import('@/views/exception/index.vue'),
+        name: 'exception',
+    },
     // 3D model
     {
         path: '/ThreeDModel/:id',

@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * (ChatGpt)表服务实现类
  *
  * @author fish
- * @since 2023-11-07 17:13:42
+ * @since 2024-3-07 17:13:42
  */
 @Slf4j
 @Service("chatGptService")

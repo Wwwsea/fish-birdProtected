@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.WebsiteInfo;
  * (WebsiteInfo)表数据库访问层
  *
  * @author fish
- * @since 2023-2-27 14:07:33
+ * @since 2024-2-27 14:07:33
  */
 public interface WebsiteInfoMapper extends BaseMapper<WebsiteInfo> {
 

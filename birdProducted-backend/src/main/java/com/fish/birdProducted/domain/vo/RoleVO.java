@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/11/28 9:04
+ * 创建时间：2024/3/28 9:04
  */
 @Data
 public class RoleVO {

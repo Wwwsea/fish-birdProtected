@@ -3,7 +3,7 @@ package com.fish.birdProducted.constants;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/12 20:09
+ * 创建时间：2024/2/12 20:09
  */
 public class LogConst {
 

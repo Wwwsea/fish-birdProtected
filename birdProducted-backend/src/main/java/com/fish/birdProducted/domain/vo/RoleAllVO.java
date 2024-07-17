@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/11/30 15:34
+ * 创建时间：2024/3/30 15:34
  */
 @Data
 public class RoleAllVO {

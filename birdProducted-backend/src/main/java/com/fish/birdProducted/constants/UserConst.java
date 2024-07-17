@@ -3,7 +3,7 @@ package com.fish.birdProducted.constants;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/17 9:07
+ * 创建时间：2024/10/17 9:07
  */
 public class UserConst {
 

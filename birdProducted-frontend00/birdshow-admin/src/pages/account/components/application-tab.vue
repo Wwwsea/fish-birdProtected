@@ -10,7 +10,7 @@ const { t } = useI18n()
       <a-card hoverable style="width: 400px">
         <a-card-meta title="Antdv Pro">
           <template #avatar>
-            <a-avatar src="/logo.svg" />
+            <a-avatar src="/lok.ico" />
           </template>
           <template #description>
             <div class="flex">

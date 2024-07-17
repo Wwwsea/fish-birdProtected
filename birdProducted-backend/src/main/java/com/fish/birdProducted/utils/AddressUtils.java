@@ -20,7 +20,10 @@ public class AddressUtils {
     // 未知地址
     public static final String UNKNOWN = "未知";
 
+
+
     public static String getRealAddressByIP(String ip) {
+
         // 内网不查询
         if (IpUtils.internalIp(ip)) {
             return "内网IP";

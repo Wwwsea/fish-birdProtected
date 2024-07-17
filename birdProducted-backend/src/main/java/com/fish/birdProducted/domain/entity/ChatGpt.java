@@ -16,7 +16,7 @@ import java.util.Date;
  * (ChatGpt)表实体类
  *
  * @author fish
- * @since 2023-3-11 12:01:59
+ * @since 2024-3-3 12:01:59
  */
 @Data
 @AllArgsConstructor

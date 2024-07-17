@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/11 9:21
+ * 创建时间：2024/2/11 9:21
  */
 @Configuration
 public class LogRabbitConfig {
@@ -46,9 +46,7 @@ public class LogRabbitConfig {
      * 定义交换机
      */
     @Bean
-    public DirectExchange logExchange() {
-        return ExchangeBuilder.directExchange(LOG_EXCHANGE).durable(true).build();
-    }
+    public DirectExchange logExchange() {return ExchangeBuilder.directExchange(LOG_EXCHANGE).durable(true).build();}
 
     /**
      * 声明队列
@@ -59,7 +57,7 @@ public class LogRabbitConfig {
     }
 
     /**
-     * 绑定队列跟交换机(登录日志)
+     * 绑定队列跟交换机
      */
     @Bean
     public Binding loginBinding(DirectExchange logExchange, Queue loginQueue) {

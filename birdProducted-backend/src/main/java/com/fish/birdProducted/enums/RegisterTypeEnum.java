@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/17 9:17
+ * 创建时间：2024/2/17 9:17
  * 注册类型枚举
  */
 @Getter
@@ -20,11 +20,7 @@ public enum RegisterTypeEnum {
     /**
      * Gitee
      */
-    GITEE(1, "Gitee登录", "gitee"),
-    /**
-     * Github
-     */
-    GITHUB(2, "Github登录", "github");
+    GITEE(1, "Gitee登录", "gitee");
 
 
     /**

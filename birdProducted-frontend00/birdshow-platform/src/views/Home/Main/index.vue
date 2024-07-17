@@ -8,7 +8,6 @@
         <span style="margin-left: 15px">{{ useWebsite?.webInfo?.headerNotification }}</span>
       </div>
       <!-- 推荐文章 -->
-      <RecommendArticle/>
       <div class="essay_title">
         <el-divider border-style="dashed" content-position="left">
           <div>

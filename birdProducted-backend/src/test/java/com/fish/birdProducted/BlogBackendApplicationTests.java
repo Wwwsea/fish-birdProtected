@@ -1,25 +1,13 @@
 package com.fish.birdProducted;
 
-import com.fish.birdProducted.domain.dto.BirdCategoryDTO;
-import com.fish.birdProducted.domain.dto.CategoryDTO;
-import com.fish.birdProducted.domain.dto.SearchBirdCategoryDTO;
-import com.fish.birdProducted.domain.dto.SearchCategoryDTO;
 import com.fish.birdProducted.domain.vo.ArticleSearchVO;
-import com.fish.birdProducted.domain.vo.BirdCategoryVO;
-import com.fish.birdProducted.domain.vo.CategoryVO;
-import com.fish.birdProducted.service.impl.ArticleServiceImpl;
-import com.fish.birdProducted.service.impl.BirdCategoryServiceImpl;
-import com.fish.birdProducted.service.impl.CategoryServiceImpl;
 import com.fish.birdProducted.service.impl.ElasticsearchServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import com.fish.birdProducted.utils.ParseEmailUtils;
 
-import java.util.List;
+import java.net.InetAddress;
 
-@SpringBootTest
+//@SpringBootTest
 class  BlogBackendApplicationTests {
 
     @Autowired
@@ -43,7 +31,14 @@ class  BlogBackendApplicationTests {
 
     @Test
     void esLoads() throws Exception {
+        String osName = System.getProperty("os.name");
 
+        InetAddress localHost = InetAddress.getLocalHost();
+
+        System.out.println("Local Host IP Address: " + localHost.getHostAddress());
+
+        System.out.println("Operating System: " + osName);
     }
+
 
 }

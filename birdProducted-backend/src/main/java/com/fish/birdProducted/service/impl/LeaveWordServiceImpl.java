@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * (LeaveWord)表服务实现类
  *
  * @author fish
- * @since 2023-11-03 15:01:11
+ * @since 2024-3-03 15:01:11
  */
 @Service("leaveWordService")
 public class LeaveWordServiceImpl extends ServiceImpl<LeaveWordMapper, LeaveWord> implements LeaveWordService {

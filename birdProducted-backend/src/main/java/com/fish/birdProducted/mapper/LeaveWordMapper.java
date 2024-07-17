@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.LeaveWord;
  * (LeaveWord)表数据库访问层
  *
  * @author fish
- * @since 2023-11-03 15:01:10
+ * @since 2024-3-03 15:01:10
  */
 public interface LeaveWordMapper extends BaseMapper<LeaveWord> {
 

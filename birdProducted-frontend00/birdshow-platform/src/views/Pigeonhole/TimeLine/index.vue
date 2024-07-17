@@ -10,12 +10,12 @@ function handleData(data) {
     // 提取前 50 个字符
     item.articleContent = item.articleContent.substring(0, 60) + '...';
     // 时间去掉时分秒
-    item.createTime = item.createTime.substring(0, 10);
+    item.extinctionDate = item.extinctionDate.substring(0, 7); // 保留年月部分，格式为 'YYYY-MM'
     return item;
   });
   const groupedArticles = computed(() => {
     return data.reduce((groups, article) => {
-      const year = new Date(article.createTime).getFullYear();
+      const year = new Date(article.extinctionDate).getFullYear();
       if (!groups[year]) {
         groups[year] = [];
       }
@@ -80,7 +80,7 @@ onMounted(async () => {
           <div class="timeline">
             <template v-for="(item,year) in items" :key="item.id">
               <div class="year">--{{ year }}--</div>
-              <div class="item" @click="$router.push(`/article/${i.id}`)" :data-text="i.createTime" v-for="i in item">
+              <div class="item" @click="$router.push(`/article/${i.id}`)" :data-text="i.extinctionDate" v-for="i in item">
                 <div class="content">
                   <img class="img" :src="i.articleCover"/>
                   <h2 class="content-title">{{ i.articleTitle }}</h2>

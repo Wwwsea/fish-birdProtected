@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref } from 'vue'
-import { message } from 'ant-design-vue'
+import {type CascaderProps, message} from 'ant-design-vue'
 import type { CateDataItem, formType } from '~/pages/bird/birdCate/type.ts'
 import { addCategory, updateCategory } from '~/api/bird/birdCate'
 
@@ -14,6 +14,10 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modalOpen', 'add:success'])
+const options = ref<CascaderProps['options']>([])
+
+// const branchData={[{ title: '目', value: '目', key: '1' },{ title: '科', value: '科', key: '2' },{ title: '属', value: '属', key: '3' }]}
+
 
 // 类型是否为目录
 const isDir = ref(false)
@@ -30,6 +34,7 @@ const treeData = computed(() => {
   console.log('hahahahah')
   console.log('props.cateData::::', props.cateData)
   console.log('props.modalTitle::::', props.modalTitle)
+  // options.value =
   return convertDataStructure(props.cateData as CateDataItem[])
 })
 
@@ -113,9 +118,20 @@ async function handleOpen() {
 
         </div>
         <div style="display: flex">
+
           <a-form-item label="所属分支名称" style="margin-right: 1em">
-            <a-input v-model:value="viewForm.biologyBranch"/>
+<!--            <a-input v-model:value="viewForm.biologyBranch"/>-->
+            <a-select
+              v-model:value="viewForm.biologyBranch"
+              placeholder="请选择所属分支名称"
+              style="width: 160px"
+            >
+              <a-select-option value="目">目</a-select-option>
+              <a-select-option value="科">科</a-select-option>
+              <a-select-option value="属">属</a-select-option>
+            </a-select>
           </a-form-item>
+
         </div>
       </a-form>
     </a-modal>

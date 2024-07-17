@@ -1,14 +1,19 @@
 package com.fish.birdProducted.service.impl;
 
 import com.fish.birdProducted.domain.dto.ArticleDTO;
+import com.fish.birdProducted.domain.entity.Article;
 import com.fish.birdProducted.domain.vo.ArticleListVO;
+import com.fish.birdProducted.mapper.ArticleMapper;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +27,8 @@ class ArticleServiceImplTest {
 
     @Autowired
     private ArticleServiceImpl articleService;
+    @Resource
+    private ArticleMapper articleMapper;
     @Test
     void publish() {
         ArticleDTO articleDTO = new ArticleDTO();
@@ -50,7 +57,16 @@ class ArticleServiceImplTest {
 
     @Test
     void listArticle(){
-        List<ArticleListVO> res = articleService.listArticle();
-        System.out.println(res.toArray().length);
+//        List<ArticleListVO> res = articleService.listArticle();
+//        List<Long> res = articleMapper.selectList(null).stream().map(Article::getId).toList();
+        Object[] resArray = articleMapper.selectList(null).toArray();
+        List<Long> res = Arrays.stream(resArray)
+                .map(obj -> {
+                    Article article = (Article) obj;
+                    return article.getId();
+                })
+                .collect(Collectors.toList());
+        System.out.println(res.toArray());
     }
+
 }

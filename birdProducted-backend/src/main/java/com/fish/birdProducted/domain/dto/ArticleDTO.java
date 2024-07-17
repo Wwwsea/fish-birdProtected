@@ -1,9 +1,12 @@
 package com.fish.birdProducted.domain.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import com.fish.birdProducted.domain.BaseData;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,4 +42,8 @@ public class ArticleDTO implements BaseData {
     //文章状态 (1公开 2私密 3草稿)
     @NotNull(message = "文章状态不能为空")
     private Integer status;
+    //灭绝时间，默认为空
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date extinctionDate;
 }

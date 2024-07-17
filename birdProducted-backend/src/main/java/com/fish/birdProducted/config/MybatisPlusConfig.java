@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.fish.birdProducted.mapper")//扫描mapper文件夹
+@MapperScan("com.fish.birdProducted.mapper") //扫描mapper文件夹
 public class MybatisPlusConfig {
 
     /**

@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("b_category")
+@TableName("t_category")
 public class BirdCategory implements BaseData {
     //分类id
     private Long id;

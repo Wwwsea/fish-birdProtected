@@ -17,7 +17,7 @@ import java.util.Date;
  * (Role)表实体类
  *
  * @author fish
- * @since 2023-10-13 15:02:40
+ * @since 2024-2-13 15:02:40
  */
 @Data
 @AllArgsConstructor

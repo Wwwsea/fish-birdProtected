@@ -186,8 +186,7 @@ function deleteUser(ids: string[]) {
 // 详情窗口
 const detailModal = ref(false)
 const userDetailData = ref()
-// 新增窗口
-const insertModal = ref(false)
+
 
 async function userDetailFunc(id?: string) {
   if (!id)
@@ -261,14 +260,12 @@ function closeModalFunc() {
     </template>
     <template #table-content>
       <DetailModal :modal-open="detailModal" :data="userDetailData" @update:close:modal="closeModalFunc" />
-      <InsertModal :modal-open="insertModal" @update:close:modal="insertModal = false" />
       <a-table
         :columns="columns"
         :data-source="tabData"
         :loading="loading"
         :row-selection="{ selectedRowKeys: state.selectedRowKeys, onChange: onSelectChange }"
         :row-key="record => record.id"
-        size="small"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.dataIndex === 'avatar'">

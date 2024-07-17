@@ -18,6 +18,6 @@ import Brand from "@/views/Home/Brand/index.vue";
 .bg {
   // 过渡时间
   transition: all 1s ease !important;
-  background-color: var(--mao-background-color);
+  background-color: var(--bird-background-color);
 }
 </style>

@@ -2,6 +2,7 @@ server:
   port: 8080
 
 spring:
+  # 支持热部署
   devtools:
     restart:
       enabled: true
@@ -30,17 +31,22 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  # 消息队列
   rabbitmq:
     # rabbitmq 地址
     host: 127.0.0.1
     # rabbitmq 端口
     port: 5672
     # rabbitmq 用户名
-    username: guest
+    username: fish
     # rabbitmq 密码
-    password: guest
+    password: 123456
     listener:
       simple:
+#        concurrency: 1
+#        max-concurrency: 1
+#        acknowledge-mode: manual
+#        prefetch: 1
         retry:
           enabled: true #是否开启消费者重试
           max-attempts: 3 #最大重试次数
@@ -49,25 +55,22 @@ spring:
           max-interval: 10000 #重试最大时间间隔（单位毫秒）
     # 队列名称
     queue:
-      article: article_queue
       email: email_queue
       log-login: log_login_queue
       log-system: log_system_queue
     # 交换机名称
     exchange:
-      article: article_exchange
       email: email_exchange
       log: log_exchange
     # 路由键
     routingKey:
-      article: article_key
       email: email_routing_key
       log-login: log_routing_key_login
       log-system: log_routing_key_system
   mail:
     host: smtp.qq.com
     username: 2735106716@qq.com # 邮件发送账号
-    password: mtjtcbmkriaedgeg # 邮件发送账号密钥
+    password: tuvutnsljcwtdegd # 邮件发送账号密钥
     chat-gpt:
       email:  2667657399@qq.com
       password: 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
@@ -86,6 +89,7 @@ spring:
             instanceId: AUTO
           jobStore:
             class: org.quartz.impl.jdbcjobstore.JobStoreTX
+#            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
             dataSource: quartz_jobs
           dataSource:
             quartz_jobs:
@@ -129,23 +133,29 @@ springdoc:
       paths-to-match: '/**'
       packages-to-scan: com.fish.birdProducted
 oauth:
-  #代表用户使用 gitee/gitHub 应用进行身份验证
+  # TODO qq登录
+  qq:
+    app-id:
+    app-key:
+    grant_type:
+    redirect-url:
+    access-token-url: https://graph.qq.com/oauth2.0/token
+    user-openid-url: https://graph.qq.com/oauth2.0/me
+    user-info-url: https://graph.qq.com/user/get_user_info
   # gitee 登录
   gitee:
     client-id: 9e50828a55d121fbea25d4e85911e993e790b75c30fdb7650e9e28b9036046c5
     client-secret: 742ed0845845304c6bc5a89e5eeb5b75bf384b8d3bebd90f4f2103c77ae98db8
     redirect-uri: http://127.0.0.1:8080/oauth/gitee/callback
 
-  # github 登录
-  github:
-    client-id: 24a919ec3c6da9f19ac7
-    client-secret: cf3539c604396da3aa1f929a349d7e9785255441
-    redirect-uri: http://127.0.0.1:8080/oauth/github/callback
+  # QQ 登录
+
 web:
   index:
     # 网站前端首页
     path: http://127.0.0.1:6060/
 # knife4j的增强配置，不需要增强可以不配
+# 开始增强功能，就支持，比如导出离线文档，搜索功能
 knife4j:
   enable: true
   setting:

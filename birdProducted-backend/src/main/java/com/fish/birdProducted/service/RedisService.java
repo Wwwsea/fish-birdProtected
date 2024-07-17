@@ -3,7 +3,7 @@ package com.fish.birdProducted.service;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/22 15:17
+ * 创建时间：2024/2/22 15:17
  */
 public interface RedisService {
 

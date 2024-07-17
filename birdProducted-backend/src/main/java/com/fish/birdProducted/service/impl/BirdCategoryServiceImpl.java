@@ -9,7 +9,6 @@ import com.fish.birdProducted.domain.dto.SearchBirdCategoryDTO;
 import com.fish.birdProducted.domain.entity.*;
 import com.fish.birdProducted.domain.response.ResponseResult;
 import com.fish.birdProducted.domain.vo.BirdCategoryVO;
-import com.fish.birdProducted.domain.vo.CategoryVO;
 import com.fish.birdProducted.enums.RespEnum;
 import com.fish.birdProducted.mapper.ArticleMapper;
 import com.fish.birdProducted.service.BirdCategoryService;
@@ -25,7 +24,7 @@ import java.util.List;
  * (Category)表服务实现类
  *
  * @author fish
- * @since 2023-10-15 02:29:14
+ * @since 2024-10-15 02:29:14
  */
 @Service("birdCategoryService")
 public class BirdCategoryServiceImpl extends ServiceImpl<BirdCategoryMapper, BirdCategory> implements BirdCategoryService {
@@ -69,6 +68,8 @@ public class BirdCategoryServiceImpl extends ServiceImpl<BirdCategoryMapper, Bir
         LambdaQueryWrapper<BirdCategory> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StringUtils.isNotEmpty(searchBirdCategoryDTO.getCategoryName())
                             , BirdCategory::getCategoryName, searchBirdCategoryDTO.getCategoryName());
+        queryWrapper.eq(StringUtils.isNotEmpty(searchBirdCategoryDTO.getBiologyBranch())
+                , BirdCategory::getBiologyBranch, searchBirdCategoryDTO.getBiologyBranch());
         if (StringUtils.isNotNull(searchBirdCategoryDTO.getStartTime()) && StringUtils.isNotNull(searchBirdCategoryDTO.getEndTime()))
             queryWrapper.between(BirdCategory::getCreateTime, searchBirdCategoryDTO.getStartTime(), searchBirdCategoryDTO.getEndTime());
 

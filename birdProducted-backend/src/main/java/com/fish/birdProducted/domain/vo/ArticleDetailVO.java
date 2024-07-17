@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 14:03
+ * 创建时间：2024/2/16 14:03
  * 文章详情VO
  */
 @Data

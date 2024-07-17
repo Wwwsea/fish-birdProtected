@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/11/30 17:20
+ * 创建时间：2024/11/30 17:20
  */
 @Data
 public class UpdateUserStatusDTO {

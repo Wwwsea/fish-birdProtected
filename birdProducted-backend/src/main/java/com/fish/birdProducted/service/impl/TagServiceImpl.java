@@ -3,12 +3,15 @@ package com.fish.birdProducted.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fish.birdProducted.constants.FunctionConst;
+import com.fish.birdProducted.constants.SQLConst;
 import com.fish.birdProducted.domain.dto.SearchTagDTO;
 import com.fish.birdProducted.domain.dto.TagDTO;
+import com.fish.birdProducted.domain.entity.Article;
 import com.fish.birdProducted.domain.entity.ArticleTag;
 import com.fish.birdProducted.domain.entity.Tag;
 import com.fish.birdProducted.domain.response.ResponseResult;
 import com.fish.birdProducted.domain.vo.TagVO;
+import com.fish.birdProducted.mapper.ArticleMapper;
 import com.fish.birdProducted.mapper.ArticleTagMapper;
 import com.fish.birdProducted.mapper.TagMapper;
 import com.fish.birdProducted.service.TagService;
@@ -18,12 +21,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * (Tag)表服务实现类
  *
  * @author fish
- * @since 2023-10-15 02:29:14
+ * @since 2024-2-15 02:29:14
  */
 @Service("tagService")
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
@@ -32,11 +37,41 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     private ArticleTagMapper articleTagMapper;
 
     @Resource
+    private ArticleMapper articleMapper;
+
+    @Resource
     private TagMapper tagMapper;
 
     @Override
     public List<TagVO> listAllTag() {
-        return this.query().list().stream().map(tag -> tag.asViewObject(TagVO.class, item -> item.setArticleCount(articleTagMapper.selectCount(new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getTagId, tag.getId()))))).toList();
+       /* LambdaQueryWrapper<Article> query = new LambdaQueryWrapper<>();
+        query.eq(Article::getIsDeleted, SQLConst.NO_DELETED);
+        List<Article> list = articleMapper.selectList(query);*/
+//        System.out.println(list);
+        return this.query().list().stream()
+                .map(tag -> tag.asViewObject(TagVO.class,
+                        item -> item.setArticleCount(articleTagMapper.selectCount(
+                                new LambdaQueryWrapper<ArticleTag>()
+                                        .eq(ArticleTag::getTagId, tag.getId())))))
+                .toList();
+
+        // 获取查询到的文章列表的 ID 集合
+        // 获取查询到的文章列表的 ID 集合
+        /*Set<Long> articleIds = list.stream().map(Article::getId).collect(Collectors.toSet());
+
+        return this.query()
+                .list()
+                .stream()
+                .filter(tag -> articleTagMapper.selectCount(new LambdaQueryWrapper<ArticleTag>()
+                        .eq(ArticleTag::getTagId, tag.getId())
+                        .in(ArticleTag::getArticleId, articleIds)) > 0)
+                .map(tag -> tag.asViewObject(TagVO.class, item -> item.setArticleCount(
+                        articleTagMapper.selectCount(new LambdaQueryWrapper<ArticleTag>()
+                                .eq(ArticleTag::getTagId, tag.getId())
+                        )
+                )))
+                .toList();*/
+
     }
 
     @Override

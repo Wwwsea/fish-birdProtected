@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/17 15:09
+ * 创建时间：2024/2/17 15:09
  */
 @Data
 public class UserResetConfirmDTO {

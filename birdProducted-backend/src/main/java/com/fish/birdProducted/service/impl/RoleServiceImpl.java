@@ -26,7 +26,7 @@ import java.util.Objects;
  * (Role)表服务实现类
  *
  * @author fish
- * @since 2023-10-13 15:02:40
+ * @since 2024-10-13 15:02:40
  */
 @Service("roleService")
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {

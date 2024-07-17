@@ -19,24 +19,23 @@ import java.util.stream.Collectors;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/11 16:08
+ * 创建时间：2024/2/11 16:08
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 @Data
 public class LoginUser implements UserDetails {
-    //数据库中未体现
 
     @Resource
     private RedisCache redisCache;
 
     private User user;
 
-    //存储权限信息
+    // 存储权限信息
     private List<String> permissions;
 
-    //存储SpringSecurity所需要的权限信息的集合
+    // 存储SpringSecurity所需要的权限信息的集合
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;
 
@@ -69,6 +68,7 @@ public class LoginUser implements UserDetails {
 
     /**
      * 账号是否过期
+     *
      * @return
      */
     @Override
@@ -78,6 +78,7 @@ public class LoginUser implements UserDetails {
 
     /**
      * 用户是否锁定
+     *
      * @return
      */
     @Override

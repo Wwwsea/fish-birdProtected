@@ -23,10 +23,10 @@
             在g元素中使用use元素多次引用了赚钱定义的名为gentle-wave的路径元素
             通过设置不同的x，y坐标和填充颜色，实现了波浪形状和渐变效果 -->
         <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--mao-bg-wave01)"/>
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--mao-bg-wave02)"/>
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--mao-bg-wave03)"/>
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--mao-bg-wave04)"/>
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--bird-bg-wave01)"/>
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--bird-bg-wave02)"/>
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--bird-bg-wave03)"/>
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--bird-bg-wave04)"/>
         </g>
 
       </svg>

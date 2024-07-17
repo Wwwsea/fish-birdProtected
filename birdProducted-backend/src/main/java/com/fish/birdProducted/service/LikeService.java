@@ -11,7 +11,7 @@ import java.util.List;
  * (Like)表服务接口
  *
  * @author fish
- * @since 2023-10-18 19:41:19
+ * @since 2024-2-18 19:41:19
  */
 public interface LikeService extends IService<Like> {
 

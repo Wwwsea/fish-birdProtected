@@ -22,7 +22,7 @@ import com.fish.birdProducted.constants.LogConst;
  * (WebsiteInfo)表控制层
  *
  * @author fish
- * @since 2023-2-27 14:07:33
+ * @since 2024-2-27 14:07:33
  */
 @Tag(name = "网站基本信息")
 @RestController

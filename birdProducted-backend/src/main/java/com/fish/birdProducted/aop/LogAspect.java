@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/11 22:56
+ * 创建时间：2024/2/11 22:56
  * 操作日志aop
  */
 @Component
@@ -44,12 +44,18 @@ public class LogAspect {
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 生产者
+     */
     @Resource
     private RabbitTemplate rabbitTemplate;
 
     @Value("${spring.rabbitmq.routingKey.log-system}")
     private String routingKey;
 
+    /**
+     * 日志交换机
+     */
     @Value("${spring.rabbitmq.exchange.log}")
     private String exchange;
 
@@ -60,7 +66,13 @@ public class LogAspect {
     public void pt() {
     }
 
-    // 环绕通知，在方法执行前后执行
+    /**
+     * 环绕通知，在方法执行前后执行
+     *
+     * @param joinPoint 切入点
+     * @return {@link Object 返回被切入方法的执行结果}
+     * @throws Throwable
+     */
     @Around("pt()")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         long beginTime = System.currentTimeMillis();
@@ -69,8 +81,8 @@ public class LogAspect {
             Object result = joinPoint.proceed();
             // 执行时长
             long time = System.currentTimeMillis() - beginTime;
-            recordLog(joinPoint, time,result);
-            // 打印日志
+            recordLog(joinPoint, time, result);
+            // 打印日志 获取目标方法所属类的类名,目标方法名
             log.info("【{}】执行方法【{}】，耗时【{}】毫秒", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), time);
             return result;
         } catch (Throwable e) {
@@ -83,7 +95,7 @@ public class LogAspect {
             // 请求的方法名
             String className = joinPoint.getTarget().getClass().getName();
             String methodName = signature.getName();
-             assert request != null;
+            assert request != null;
             // 是否前台
             String ipAddr = IpUtils.getIpAddr(request);
             User user = userMapper.selectById(SecurityUtils.getUserId());
@@ -91,8 +103,7 @@ public class LogAspect {
             Object[] args = joinPoint.getArgs();
             List<Object> multipartFile = new ArrayList<>();
             for (Object arg : args) {
-                if (arg instanceof MultipartFile) {
-                    // 这个arg是MultipartFile类型
+                if (arg instanceof MultipartFile) { // 这个arg是MultipartFile类型
                     multipartFile.add(arg);
                 }
             }
@@ -104,22 +115,29 @@ public class LogAspect {
                     .exception(e.getMessage())
                     .reqMapping(request.getMethod())
                     .userName(StringUtils.isNull(user) ? FunctionConst.UNKNOWN_USER : user.getUsername())
-                    .address(AddressUtils.getRealAddressByIP(ipAddr))
-                    .state(2)
+                    .address(AddressUtils.getRealAddressByIP(ipAddr)) // eg: 辽宁大连
+                    .state(2) // 标记异常
                     .exception(e.getMessage())
-                    .method(className + "." + methodName + "()")
+                    .method(className + "." + methodName + "()") // eg: com.fish.birdProducted.controller.ArticleController.publish()
                     .reqParameter(!multipartFile.isEmpty() ? multipartFile.toString() : JSON.toJSONString(joinPoint.getArgs()))
                     .reqAddress(request.getRequestURI())
                     .time(time)
                     .build();
-            rabbitTemplate.convertAndSend(exchange,routingKey,logEntity);
-            log.error("【{}】执行方法【{}】异常", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), e);
+            rabbitTemplate.convertAndSend(exchange, routingKey, logEntity);
+            log.error("【{}】执行方法【{}】异常: ", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), e);
         }
 
         return null;
     }
 
-    private void recordLog(ProceedingJoinPoint joinPoint, long time,Object result) {
+    /**
+     * 获取方法执行的相关信息，包括方法签名、注解信息、请求信息等，
+     *
+     * @param joinPoint
+     * @param time
+     * @param result
+     */
+    private void recordLog(ProceedingJoinPoint joinPoint, long time, Object result) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
@@ -143,7 +161,6 @@ public class LogAspect {
                 multipartFile.add(arg);
             }
         }
-
         Log log = Log.builder()
                 .module(logAnnotation.module())
                 .operation(logAnnotation.operation())
@@ -159,14 +176,15 @@ public class LogAspect {
                 .time(time)
                 .build();
         // TODO ResponseResult为null
-        ResponseResult responseResult = (ResponseResult)result;
+        ResponseResult responseResult = (ResponseResult) result;
         if (responseResult.getCode() == 200) {
-            log.setState(0);
-        }else{
-            log.setState(1);
+            log.setState(0); // 正常
+        } else {
+            log.setState(1); // 标记方法执行失败
         }
 
-        rabbitTemplate.convertAndSend(exchange,routingKey,log);
+        // 生产者将日志对象发送到消息队列中
+        rabbitTemplate.convertAndSend(exchange, routingKey, log);
         LogAspect.log.info("耗时：{}毫秒", time);
         LogAspect.log.info("操作时间：{}", new Date());
         LogAspect.log.info("================日志结束=========================");

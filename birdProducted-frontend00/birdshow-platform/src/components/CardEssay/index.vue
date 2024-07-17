@@ -15,6 +15,7 @@ const articleList = ref([{
   favoriteCount: '',
   createTime: '',
   updateTime: '',
+  articleType: '',
   tags: []
 }]);
 
@@ -70,12 +71,12 @@ const card = ref()
       <div class="character">
         <div class="title" @click="$router.push('/article/'+article.id)">{{ article.articleTitle }}</div>
         <div class="articleInformation">
-          <el-tooltip effect="light" content="访问量">
+<!--          <el-tooltip effect="light" content="访问量">
             <div>
               <SvgIcon name="reading"/>
               <span>{{ article.visitCount }}</span>
             </div>
-          </el-tooltip>
+          </el-tooltip>-->
           <el-tooltip effect="light" content="评论数">
             <div>
               <SvgIcon name="comments"/>
@@ -102,10 +103,18 @@ const card = ref()
           <span>标签：</span>
           <el-tag size="small" v-for="tag in article.tags">{{ tag }}</el-tag>
         </div>
+        <div class="tag" STYLE="margin-top: 1em">
+          <span>状态：</span>
+          <span style="color: green;" v-if="Number(article.articleType) === 1">  现存</span>
+          <span style="color: red;" v-else-if="Number(article.articleType) === 2">  濒危</span>
+          <span style="color: gray;" v-else-if="Number(article.articleType) === 3">  灭绝</span>
+        </div>
         <div style="display: flex;align-items: center;padding-top: 1rem">
           <div style="color: grey;font-size: 0.75em;margin-right: 1rem">发布于：{{ article.createTime }}</div>
           <div style="color: grey;font-size: 0.75em">更新于：{{ article.updateTime }}</div>
         </div>
+
+
       </div>
       <!-- 文章预览图 -->
       <div class="img img_right" style="margin-left: auto;" v-if="index % 2 == 1">

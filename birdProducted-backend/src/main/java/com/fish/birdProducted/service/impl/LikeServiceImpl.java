@@ -20,7 +20,7 @@ import java.util.Objects;
  * (Like)表服务实现类
  *
  * @author fish
- * @since 2023-10-18 19:41:19
+ * @since 2024-2-18 19:41:19
  */
 @Service("likeService")
 public class LikeServiceImpl extends ServiceImpl<LikeMapper, Like> implements LikeService {

@@ -31,7 +31,7 @@ import java.util.List;
  * (ChatGpt)表控制层
  *
  * @author fish
- * @since 2023-11-07 17:13:41
+ * @since 2024-3-07 17:13:41
  */
 @RestController
 @Tag(name = "Gpt聊天相关接口")

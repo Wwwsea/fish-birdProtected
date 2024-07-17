@@ -50,9 +50,6 @@ http.interceptors.response.use(
     (response) => {
         pendingRequestCount--;
         if (pendingRequestCount === 0) {
-            // TODO 皮卡丘 Loading
-            // const loadingStore = useLoadingStore();
-            // loadingStore.hide();
             NProgress.done();
         }
         return response.data

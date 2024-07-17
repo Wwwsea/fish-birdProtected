@@ -13,11 +13,13 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 import com.fish.birdProducted.constants.RabbitConst;
 
+import java.io.IOException;
+
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/11 10:01
- * 日志队列
+ * @创建时间 2024/2/11 10:01
+ * @content 日志队列
  */
 @Component
 @Slf4j
@@ -31,10 +33,14 @@ public class LogQueueListener {
 
     /**
      * 监听登录日志队列
+     * 设置 消费队列和并发消费者的数量范围为5到101
+     * 使用@Header接口获取messageProperties中的DELIVERY_TAG属性
      */
     @RabbitListener(queues = RabbitConst.LOG_LOGIN_QUEUE,concurrency = "5-10")
-    public void handlerLoginLog(LoginLog loginLog, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+    public void handlerLoginLog(LoginLog loginLog, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
+        try {
         log.info("监听登录日志队列,标识:{},数据：{}", tag, loginLog);
+        System.out.println(loginLog+"监听日志消息队列");
         if (loginLog.getBrowser().startsWith("Unknown")) {
             loginLog.setBrowser("未知");
         }
@@ -45,7 +51,12 @@ public class LogQueueListener {
             loginLog.setType(2);
         }
         loginLogMapper.insert(loginLog);
+//        channel.basicAck(tag,false);
+
         log.info("登录日志标识:{}，数据库添加成功", tag);
+        }catch (Exception e) {
+            log.error("消费登录日志时发生异常: {}", e.getMessage());
+        }
     }
 
     /**

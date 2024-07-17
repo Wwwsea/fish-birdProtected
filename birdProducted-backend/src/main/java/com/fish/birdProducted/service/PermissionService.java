@@ -14,7 +14,7 @@ import java.util.List;
  * (Permission)表服务接口
  *
  * @author fish
- * @since 2023-2-05 19:53:31
+ * @since 2024-2-05 19:53:31
  */
 public interface PermissionService extends IService<Permission> {
 

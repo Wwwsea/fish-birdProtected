@@ -3,14 +3,14 @@ package com.fish.birdProducted.constants;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/15 10:42
+ * 创建时间：2024/2/15 10:42
  */
 public class FunctionConst {
 
     /**
      * 未知用户标记
      */
-    public static final String UNKNOWN_USER = "unknown-1702606997";
+    public static final String UNKNOWN_USER = "unknown-202012054";
 
     /**
      * 留言内容的长度

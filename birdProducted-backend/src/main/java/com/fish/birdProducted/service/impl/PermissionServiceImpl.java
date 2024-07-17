@@ -27,7 +27,7 @@ import java.util.Optional;
  * (Permission)表服务实现类
  *
  * @author fish
- * @since 2023-2-05 19:53:31
+ * @since 2024-2-05 19:53:31
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
@@ -80,7 +80,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Override
     public ResponseResult<Void> updateOrInsertPermission(PermissionDTO permissionDTO) {
         // 权限字符是否重复
-        Permission isPermission = permissionMapper.selectOne(new LambdaQueryWrapper<Permission>().eq(Permission::getPermissionKey, permissionDTO.getPermissionKey().trim()));
+        Permission isPermission = permissionMapper.selectOne(new LambdaQueryWrapper<Permission>()
+                .eq(Permission::getPermissionKey, permissionDTO.getPermissionKey().trim()));
         if (StringUtils.isNotNull(isPermission) && !isPermission.getId().equals(permissionDTO.getId())) {
             return ResponseResult.failure("权限字符不可重复");
         }

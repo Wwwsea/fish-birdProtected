@@ -27,7 +27,8 @@ import java.util.UUID;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/11 16:03
+ * @创建时间 2024/2/11 16:03
+ * @Content security处理器
  */
 @Component
 public class SecurityHandler {
@@ -42,7 +43,6 @@ public class SecurityHandler {
     private LoginLogService loginLogService;
 
     public static final String USER_NAME = "username";
-
 
     /**
      * 登录成功处理
@@ -64,6 +64,7 @@ public class SecurityHandler {
             HttpServletResponse response,
             LoginUser user
     ) {
+        // 检查请求头中的类型是否合法
         String typeHeader = request.getHeader(Const.TYPE_HEADER);
         if ((!StringUtils.matches(typeHeader, List.of(Const.BACKEND_REQUEST, Const.FRONTEND_REQUEST)) && user.getUser().getRegisterType() == 1)) {
             throw new BadCredentialsException("非法请求");
@@ -82,7 +83,9 @@ public class SecurityHandler {
         });
         // TODO 更新登录状态
 //        userService.userLoginStatus(user.getUser().getId());
+        // 记录登录日志
         loginLogService.loginLog(request, request.getParameter(USER_NAME), 0, RespConst.SUCCESS_LOGIN_MSG);
+        // 返回给客户端
         WebUtil.renderString(response, ResponseResult.success(authorizeVO, RespConst.SUCCESS_LOGIN_MSG).asJsonString());
     }
 

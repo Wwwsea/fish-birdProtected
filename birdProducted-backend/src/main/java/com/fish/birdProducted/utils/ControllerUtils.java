@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/30 9:52
+ * 创建时间：2024/10/30 9:52
  */
 public class ControllerUtils {
     public static  <T> ResponseResult<T> messageHandler(Supplier<T> supplier) {

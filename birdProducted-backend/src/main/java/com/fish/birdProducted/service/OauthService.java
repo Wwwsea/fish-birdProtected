@@ -6,7 +6,7 @@ import me.zhyd.oauth.model.AuthResponse;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/21 17:09
+ * 创建时间：2024/2/21 17:09
  */
 public interface OauthService {
 

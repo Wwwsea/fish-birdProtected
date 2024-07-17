@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/25 9:20
+ * 创建时间：2024/2/25 9:20
  */
 @Getter
 @AllArgsConstructor
@@ -15,12 +15,7 @@ public enum UrlEnum {
     /**
      * Gitee解析Token获取个人信息
      */
-    GITEE_USER_INFO("https://gitee.com/api/v5/user", "GET", "Gitee解析Token获取个人信息"),
-
-    /**
-     * Github解析Token获取个人信息
-     */
-    GITHUB_USER_INFO("https://api.github.com/user", "GET", "Github解析Token获取个人信息");
+    GITEE_USER_INFO("https://gitee.com/api/v5/user", "GET", "Gitee解析Token获取个人信息");
 
     /**
      * url

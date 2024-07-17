@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/15 23:54
+ * 创建时间：2024/2/15 23:54
  * 推荐文章VO
  */
 @Data

@@ -106,7 +106,7 @@ defineProps({
   padding-top: 1rem;
 }
 .replyUserNickname{
-  color: var(--mao-bg-reply);
+  color: var(--bird-bg-reply);
   font-weight: bold
 }
 </style>

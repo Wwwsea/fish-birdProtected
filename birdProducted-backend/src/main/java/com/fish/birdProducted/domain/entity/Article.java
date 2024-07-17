@@ -1,8 +1,10 @@
 package com.fish.birdProducted.domain.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,7 @@ import java.util.Date;
  * (Article)表实体类
  *
  * @author fish
- * @since 2023-10-15 02:38:48
+ * @since 2024-2-15 02:38:48
  */
 @SuppressWarnings("serial")
 @Data
@@ -53,5 +55,10 @@ public class Article implements BaseData {
     private Date updateTime;
     //是否删除（0：未删除，1：已删除）
     private Integer isDeleted;
+    // 灭绝时间
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
+    private Date extinctionDate;
 }
 

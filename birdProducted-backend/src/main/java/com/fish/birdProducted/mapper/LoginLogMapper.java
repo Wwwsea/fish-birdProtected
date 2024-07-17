@@ -8,7 +8,7 @@ import com.fish.birdProducted.domain.entity.LoginLog;
  * (LoginLog)表数据库访问层
  *
  * @author fish
- * @since 2023-2-08 14:38:43
+ * @since 2024-2-08 14:38:43
  */
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
 

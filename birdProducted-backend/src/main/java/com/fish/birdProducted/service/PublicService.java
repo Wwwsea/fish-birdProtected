@@ -3,7 +3,7 @@ package com.fish.birdProducted.service;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/16 17:06
+ * 创建时间：2024/2/16 17:06
  */
 public interface PublicService {
 

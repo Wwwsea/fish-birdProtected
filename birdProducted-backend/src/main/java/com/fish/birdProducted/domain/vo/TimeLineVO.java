@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/26 20:07
+ * 创建时间：2024/2/26 20:07
  * 时间轴DTO
  */
 @Data
@@ -25,7 +25,7 @@ public class TimeLineVO {
     //文章内容
     @Schema(description = "文章内容")
     private String articleContent;
-    //文章创建时间
-    @Schema(description = "文章创建时间")
-    private Date createTime;
+
+    @Schema(description = "灭绝时间")
+    private Date extinctionDate;
 }

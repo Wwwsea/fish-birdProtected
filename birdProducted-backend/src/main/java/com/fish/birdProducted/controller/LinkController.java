@@ -25,7 +25,7 @@ import java.util.List;
  * (Link)表控制层
  *
  * @author fish
- * @since 2023-11-14 08:48:32
+ * @since 2024-3-14 08:48:32
  */
 @Tag(name = "友链相关接口")
 @RestController
@@ -47,6 +47,7 @@ public class LinkController {
 
     @Operation(summary = "查询所有通过申请的友链")
     @AccessLimit(seconds = 60, maxCount = 30)
+    @LogAnnotation(module = "友链管理",operation = LogConst.GET)
     @GetMapping("/list")
     public ResponseResult<List<LinkVO>> getLinkList() {
         return ControllerUtils.messageHandler(() -> linkService.getLinkList());

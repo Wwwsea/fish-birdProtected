@@ -14,7 +14,7 @@ import java.util.List;
  * (Menu)表服务接口
  *
  * @author fish
- * @since 2023-11-17 22:15:22
+ * @since 2024-3-17 22:15:22
  */
 public interface MenuService extends IService<Menu> {
 

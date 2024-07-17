@@ -2,12 +2,12 @@
 import type {Ref, UnwrapRef} from 'vue'
 import {h} from 'vue'
 import type {TableColumnsType} from 'ant-design-vue'
-import {  searchMenusApi} from '~/api/common/menu.ts'
 import { birdcategoriesList, searchCategoryById, searchCategory, deleteCategoryByIds } from '~/api/bird/birdCate'
-import type {MenuData,CateDate} from '~/layouts/basic-layout/typing.ts'
+import type {CateDate} from '~/layouts/basic-layout/typing.ts'
 import {CateDataItem} from "~/pages/bird/birdCate/type.ts";
 import modal from './modal.vue'
 import {message} from "ant-design-vue";
+import dayjs from "dayjs";
 
 defineExpose({h})
 
@@ -19,8 +19,9 @@ const modalOpen = ref<boolean>(false)
 const modalTitle = ref<string>()
 
 const formState = reactive({
-  username: '',
-  biologyBranch: undefined
+  categoryName: '',
+  biologyBranch: undefined,
+  time: undefined
 })
 
 
@@ -28,13 +29,18 @@ async function onFinish(values: any) {
 // +++++
   const submitData = {
     ...values,
+    startTime: values.time && values.time.length > 0 ? dayjs(values.time[0]).format('YYYY-MM-DD HH:mm:ss') : undefined,
+    endTime: values.time && values.time.length > 0 ? dayjs(values.time[1]).format('YYYY-MM-DD HH:mm:ss') : undefined,
   }
 
   isLoading.value = true
+  console.log("submitData----",submitData)
   const { data } = await searchCategory(submitData)
-  isLoading.value = false
+  console.log("data-----",data)
   cateDataList.value = data as any
-  refreshFunc()
+  newCateData.value = buildTree(data)
+  isLoading.value = false
+  // refreshFunc()
 
 }
 
@@ -81,9 +87,23 @@ const cateColumns = ref<TableColumnsType>([
   }
 ])
 
+const getButtonColor = (branch) => {
+  switch (branch) {
+    case '目':
+      return 'red';
+    case '科':
+      return 'yellow';
+    case '属':
+      return 'green';
+    default:
+      return '';
+  }
+};
+
 onMounted(() => {
-  getMenuList()
+  getCateList()
 })
+
 // 元数据
 const cateDate = ref()
 
@@ -95,7 +115,7 @@ const newCateData = ref()
 /**
  * 获取分类列表
  */
-async function getMenuList() {
+async function getCateList() {
   const {data} = await birdcategoriesList() as any
   cateDate.value = data
   cateDataList.value = buildTree(data)
@@ -176,7 +196,7 @@ function handleExpand(expanded: boolean, record: any) {
  */
 function refreshFunc() {
   isLoading.value = true
-  getMenuList()
+  getCateList()
 }
 
 const showModal = (flag: string) => {
@@ -197,6 +217,7 @@ const showModal = (flag: string) => {
  */
 function handleModalOpenUpdate(e: boolean) {
   modalOpen.value = e
+  refreshFunc()
 }
 
 /**
@@ -206,6 +227,8 @@ function handleAddSuccess() {
   refreshFunc()
 }
 
+
+
 const formData = ref()
 // 弹窗标识：0：新增 1：修改 2：删除
 const modalType: Ref<UnwrapRef<number | null >> = ref(null)
@@ -213,7 +236,7 @@ const modalType: Ref<UnwrapRef<number | null >> = ref(null)
 /**
  * 修改
  */
-async function updateMenu(id: string) {
+async function updateCate(id: string) {
   const {data} = await searchCategoryById(id);
   formData.value = data
   console.log("update----formData.value+++++:",formData.value)
@@ -223,7 +246,7 @@ async function updateMenu(id: string) {
 /**
  * 添加
  */
-function addMenu(flag: string, parentId?: string) {
+function addCate(flag: string, parentId?: string) {
   const form = {
     // id
     id: '',
@@ -245,7 +268,7 @@ function addMenu(flag: string, parentId?: string) {
 /**
  * 删除 √
  */
-async function deleteMenu (id: string) {
+async function deleteCate (id: string) {
   const data = await deleteCategoryByIds(id).catch(res => {
     message.warn(res)
   })
@@ -267,29 +290,36 @@ async function deleteMenu (id: string) {
     <template #form-items>
       <a-form-item
           label="分类名称"
-          name="username"
+          name="categoryName"
       >
-        <a-input v-model:value="formState.username" placeholder="请输入分类名称"/>
+        <a-input v-model:value="formState.categoryName" placeholder="请输入分类名称"/>
       </a-form-item>
 
-      <a-form-item label="状态" name="biologyBranch" style="width: 240px">
-        <a-select v-model:value="formState.biologyBranch" placeholder="分类状态">
-          <a-select-option :value="0">
+      <a-form-item label="生物分支" name="biologyBranch" style="width: 240px">
+        <a-select v-model:value="formState.biologyBranch" placeholder="请选择生物分支">
+          <a-select-option :value=" '目' ">
             目
           </a-select-option>
-          <a-select-option :value="1">
+          <a-select-option :value=" '科'">
             科
           </a-select-option>
-          <a-select-option :value="2">
+          <a-select-option :value=" '属' ">
             属
           </a-select-option>
         </a-select>
+      </a-form-item>
+
+      <a-form-item
+          label="创建时间"
+          name="time"
+      >
+        <a-range-picker v-model:value="formState.time" :placeholder="['开始时间', '结束时间']" />
       </a-form-item>
     </template>
 
     <template #operate-btn>
       <div>
-        <a-button @click="addMenu('add')" type="primary">
+        <a-button @click="addCate('add')" type="primary">
           <template #icon>
             <PlusOutlined/>
           </template>
@@ -312,15 +342,30 @@ async function deleteMenu (id: string) {
             @expand="handleExpand"
             :loading="isLoading"
         >
-          <template #bodyCell="{ column,record  }">
+          <template #bodyCell="{ column,record }">
+
+            <template v-if="column.dataIndex === 'biologyBranch'">
+              <template v-if="record.biologyBranch.length <= 2">
+                <a-tag v-for="branch in record.biologyBranch" :key="branch" :color = "getButtonColor(branch)" :bordered="false">
+                  {{ branch }}
+                </a-tag>
+              </template>
+            </template>
+
+<!--            <template v-if="column.key === 'biologyBranch'">
+              <span :class="{ 'red-text': record.biologyBranch === '科' }">{{ record.biologyBranch }}</span>
+&lt;!&ndash;              <a-button :style="{ backgroundColor: getButtonColor(record.biologyBranch) }"> {{ record.biologyBranch }} </a-button>&ndash;&gt;
+              <a-button type="primary"> uuuu </a-button>
+            </template>-->
+
             <template v-if="column.key === 'operation'">
-              <a-button type="link" style="padding: 0;" @click="updateMenu(record.id)">
+              <a-button type="link" style="padding: 0;" @click="updateCate(record.id)">
                 <template #icon>
                   <FileSyncOutlined/>
                 </template>
                 <span style="margin-inline-start:1px">修改</span>
               </a-button>
-              <a-button type="link" style="padding: 0;margin-left: 5px" @click="addMenu('add',record.parentId)">
+              <a-button type="link" style="padding: 0;margin-left: 5px" @click="addCate('add',record.parentId)">
                 <template #icon>
                   <PlusOutlined/>
                 </template>
@@ -330,7 +375,7 @@ async function deleteMenu (id: string) {
                   title="是否确定删除"
                   ok-text="Yes"
                   cancel-text="No"
-                  @confirm="deleteMenu(record.id)"
+                  @confirm="deleteCate(record.id)"
               >
                 <a-button type="link" style="padding: 0;margin-left: 5px">
                   <template #icon>
@@ -362,5 +407,9 @@ async function deleteMenu (id: string) {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.red-text {
+  color: red;
 }
 </style>

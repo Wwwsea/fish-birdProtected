@@ -22,7 +22,7 @@ const useWebsite = useWebsiteStore()
   width: 100%;
   height: 100px;
   // 渐变底部
-  background: var(--mao-bg-footer);
+  background: var(--bird-bg-footer);
 }
 
 .footer_container {

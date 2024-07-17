@@ -18,7 +18,7 @@ import java.util.List;
  * (ChatGpt)表服务接口
  *
  * @author fish
- * @since 2023-11-07 17:13:42
+ * @since 2024-3-07 17:13:42
  */
 public interface ChatGptService extends IService<ChatGpt> {
     /**

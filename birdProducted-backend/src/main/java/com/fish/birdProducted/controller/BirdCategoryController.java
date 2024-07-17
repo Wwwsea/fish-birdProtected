@@ -3,25 +3,19 @@ package com.fish.birdProducted.controller;
 import com.fish.birdProducted.annotation.LogAnnotation;
 import com.fish.birdProducted.constants.LogConst;
 import com.fish.birdProducted.domain.dto.BirdCategoryDTO;
-import com.fish.birdProducted.domain.dto.CategoryDTO;
 import com.fish.birdProducted.domain.dto.SearchBirdCategoryDTO;
-import com.fish.birdProducted.domain.dto.SearchCategoryDTO;
 import com.fish.birdProducted.domain.response.ResponseResult;
 import com.fish.birdProducted.domain.vo.BirdCategoryVO;
-import com.fish.birdProducted.domain.vo.CategoryVO;
-import com.fish.birdProducted.service.ArticleService;
 import com.fish.birdProducted.service.BirdCategoryService;
 import com.fish.birdProducted.utils.ControllerUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.fish.birdProducted.annotation.AccessLimit;
-import com.fish.birdProducted.domain.entity.BirdCategory;
 
 import java.util.List;
 

@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/10 17:28
+ * 创建时间：2024/2/10 17:28
  * jwt 工具类
  */
 @Component
@@ -141,7 +141,7 @@ public class JwtUtils {
                 .withExpiresAt(expire)
                 .withIssuedAt(now)
                 .sign(algorithm);
-        // 存入redis
+        // 存入redis jwt:white:list:e02a8c4e-70cb-4d55-b874-316cfca0a1f9
         redisCache.setCacheObject(RedisConst.JWT_WHITE_LIST + uuid
                                     , jwt
                                     ,(int) (expire.getTime() - now.getTime())
@@ -207,9 +207,12 @@ public class JwtUtils {
     @Resource
     private PermissionMapper permissionMapper;
 
-    // 查询jwt角色&权限
-    // 根据用户ID查询用户的角色和权限信息，并将角色和权限信息组合成一个权限列表返回
-    // 这个权限列表用于权限控制或者其他需要根据用户角色和权限进行逻辑判断的场景
+    /**
+     * @param userId
+     * @return {@link List }
+     * @Content 查询jwt角色&权限,根据用户ID查询用户的角色和权限信息，并将角色和权限信息组合成一个权限列表返回
+     * ,这个权限列表用于权限控制或者其他需要根据用户角色和权限进行逻辑判断的场景
+     */
     private List<String> getAuthorities(Long userId) {
         // 查询指定用户的角色列表
         List<UserRole> userRoles = userRoleMapper.selectList(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));

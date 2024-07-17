@@ -27,6 +27,14 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
     @Resource
     private RedisCache redisCache;
 
+    /**
+     * 重写preHandle方法，在请求处理之前执行，用于进行拦截和预处理。
+     * @param request 请求对象
+     * @param response 响应对象
+     * @param handler 处理对象
+     * @return boolean
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean result = true;
@@ -38,13 +46,17 @@ public class AccessLimitInterceptor implements HandlerInterceptor {
             // 方法上面如果没有限流注解就直接通过
             if (accessLimit == null)
                 return result;
-            // 如果方法上有限流注解
+            /**
+             * 如果方法上有限流注解
+             * 从注解中获取访问限制的时间间隔和最大访问次数
+             */
             int seconds = accessLimit.seconds();
             int maxCount = accessLimit.maxCount();
             String ip = request.getRemoteAddr();
             String method = request.getMethod();
             String uri = request.getRequestURI();
             String key = "limit:" + method + ":" + uri + ":" + ip;
+
 
             try {
                 // redis 进行自增

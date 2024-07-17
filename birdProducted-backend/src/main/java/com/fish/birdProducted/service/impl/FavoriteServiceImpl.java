@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * (Favorite)表服务实现类
  *
  * @author fish
- * @since 2023-2-18 14:2:25
+ * @since 2024-2-18 14:2:25
  */
 @Service("favoriteService")
 public class FavoriteServiceImpl extends ServiceImpl<FavoriteMapper, Favorite> implements FavoriteService {

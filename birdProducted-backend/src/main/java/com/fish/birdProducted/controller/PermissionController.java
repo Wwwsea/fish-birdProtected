@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/5 20:08
+ * 创建时间：2024/2/5 20:08
  */
 @RestController
 @Tag(name = "权限字符相关接口")

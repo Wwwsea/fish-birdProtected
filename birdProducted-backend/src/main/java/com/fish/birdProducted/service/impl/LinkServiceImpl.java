@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * (Link)表服务实现类
  *
  * @author fish
- * @since 2023-11-14 08:43:35
+ * @since 2024-3-14 08:43:35
  */
 @Service("linkService")
 public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements LinkService {
@@ -98,7 +98,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     public ResponseResult<Void> isCheckLink(LinkIsCheckDTO isCheckDTO) {
         if (linkMapper.updateById(Link.builder().id(isCheckDTO.getId()).isCheck(isCheckDTO.getIsCheck()).build()) > 0) {
             // 修改成功，发送邮件
-            if (Objects.equals(isCheckDTO.getIsCheck(), SQLConst.STATUS_PUBLIC)) {
+            if (Objects.equals(isCheckDTO.getIsCheck(), SQLConst.STATUS_PUBLIC)) { // 公开记录 发送信息通知上传用户
                 publicService.sendEmail("friendLinkApplicationPass", linkMapper.selectById(isCheckDTO.getId()).getEmail());
                 return ResponseResult.success(null, "操作成功，已发送通知邮件");
             }

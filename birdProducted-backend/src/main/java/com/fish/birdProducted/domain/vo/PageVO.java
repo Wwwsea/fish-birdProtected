@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/10/19 16:50
- * 分页VO
+ * 创建时间：2024/2/19 16:50
+ * @Content 分页VO
  */
 @Data
 @AllArgsConstructor

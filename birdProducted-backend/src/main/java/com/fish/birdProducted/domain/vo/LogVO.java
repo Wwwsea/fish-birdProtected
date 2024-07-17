@@ -8,7 +8,7 @@ import java.util.Date;
  * (Log)表实体类
  *
  * @author fish
- * @since 2023-2-2 09:12:31
+ * @since 2024-2-2 09:12:31
  */
 @Data
 public class LogVO  {

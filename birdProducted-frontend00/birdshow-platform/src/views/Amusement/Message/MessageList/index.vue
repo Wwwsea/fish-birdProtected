@@ -216,7 +216,7 @@ function mdContent(content: string) {
   color: #999;
   display: flex;
   flex-direction: column;
-  background: var(--mao-bg-message);
+  background: var(--bird-bg-message);
   padding: 0.5rem;
   border-radius: $border-radius;
   margin-bottom: 1rem;

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author fish
  * <p>
- * 创建时间：2023/2/11 20:15
+ * 创建时间：2024/2/11 20:15
  */
 @Data
 public class LogDeleteDTO {

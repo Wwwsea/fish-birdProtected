@@ -4,6 +4,11 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author wwwse
+ * @date 2024/05/2
+ * @content HTTP 客户端库发起网络请求
+ */
 @Getter
 @Component
 public class ApplicationValues {

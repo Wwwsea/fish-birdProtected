@@ -72,7 +72,6 @@ public class RedisCache {
 
     /**
      * 获得缓存的基本对象。
-     *
      * @param key 缓存键值
      * @return 缓存键值对应的数据
      */

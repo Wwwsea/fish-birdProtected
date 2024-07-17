@@ -1,21 +1,94 @@
 <script setup lang="ts">
-import {categoryList} from "@/apis/category";
+import { birdCateList } from "@/apis/category";
 import {whereArticleList} from "@/apis/article";
 import ArticleList from "../ArticleList/index.vue"
 import {dayjs} from "element-plus";
+
+
+import VuePowerTree from "vue-power-tree"
+import "vue-power-tree/dist/style.css"
+
+
+
+interface Tree {
+  label: string
+  children?: Tree[]
+}
+
+const handleNodeClick = (data: Tree) => {
+}
+
+const defaultProps = {
+  children: 'children',
+  label: 'label',
+}
+
 
 const route = useRoute()
 
 const categorys = ref([])
 const articleList = ref([])
+const treeList = ref([])
 const isQueryArticle = ref(false)
 // 分类标题
 const title = ref('')
 
+
+
+let res = null
+
 onMounted(async () => {
-  await categoryList().then(res => {
+  await birdCateList().then(res => {
     if (res.code === 200) {
+
+      // 创建根节点对象
+      // 创建根节点对象
+      const convertToTree = (data) => {
+        const treeArray = [];
+
+        // 自定义的根节点
+        const rootItem = {
+          id: 0,
+          label: "鸟类",
+          children: [],
+        };
+
+        // 寻找根节点的子节点
+        const rootChildren = data.filter(item => item.parentId === 0);
+
+        // 递归构建树
+        const buildTree = (node) => {
+          const newNode = {
+            id: node.id,
+            label: node.categoryName,
+            children: [],
+          };
+
+          // 寻找当前节点的子节点
+          const children = data.filter(item => item.parentId === node.id);
+
+          // 递归构建子节点
+          children.forEach(child => {
+            newNode.children.push(buildTree(child));
+          });
+
+          return newNode;
+        };
+
+        // 构建根节点的子节点
+        rootChildren.forEach(child => {
+          rootItem.children.push(buildTree(child));
+        });
+
+        // 将根节点加入数组
+        treeArray.push(rootItem);
+
+        return treeArray;
+      };
+
+      treeList.value = convertToTree(res.data)
       categorys.value = res.data
+      console.log("ttttttttree","aaa",treeList.value);
     }
   })
 
@@ -34,6 +107,22 @@ onMounted(async () => {
     getArticle(route.params.id)
   }
 })
+
+const convertTreeToArray = (tree) => {
+  const result = [];
+
+  const traverse = (node) => {
+    result.push(node);
+
+    if (node.children && node.children.length > 0) {
+      node.children.forEach(child => traverse(child));
+    }
+  };
+
+  traverse(tree);
+
+  return result;
+};
 
 // 地址栏是否有分类id
 watch(() => route.params.id, (id) => {
@@ -61,6 +150,7 @@ function getArticle(id: string) {
         item.createTime = dayjs(item.createTime).format('YYYY-MM-DD')
       })
       articleList.value = res.data
+      console.log(res.data)
     } else {
       articleList.value = []
     }
@@ -76,7 +166,8 @@ function getArticle(id: string) {
       </template>
       <template #content>
         <template v-if="!isQueryArticle">
-          <div class="category_container">
+
+<!--          <div class="category_container">
             <div class="title">
               文章分类
             </div>
@@ -88,7 +179,21 @@ function getArticle(id: string) {
                 </div>
               </template>
             </div>
+          </div>-->
+          <div class="hello">
+            <vue-power-tree :data="treeList" :props="defaultProps" draggable show-checkbox tree-type="org" :horizontal="true"
+                            @node-click="handleNodeClick" >
+              <!-- 自定义展开收起样式 -->
+              <template v-slot:icon-node="slotProps">
+                <div v-if="slotProps.node.expanded" class="minus">
+                  -</div>
+                <div v-else class="plus">
+                  +
+                </div>
+              </template>
+            </vue-power-tree>
           </div>
+
         </template>
         <template v-if="isQueryArticle">
           <div class="category_container">
@@ -117,6 +222,17 @@ function getArticle(id: string) {
 </template>
 
 <style scoped lang="scss">
+.minus,
+.plus {
+  border: 1px solid red;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .category_container {
   display: flex;
@@ -168,7 +284,7 @@ function getArticle(id: string) {
       flex-direction: column;
       width: calc(100% / 3 - 2em);
       height: 7em;
-      background: var(--mao-bg-category);
+      background: var(--bird-bg-category);
       opacity: 0.8;
       margin: 1em;
       border-radius: $border-radius;

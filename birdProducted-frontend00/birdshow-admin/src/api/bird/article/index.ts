@@ -9,11 +9,6 @@ export async function searchCategoryById(id: string | number) {
   return useGet(`/birdcategories/back/get/${id}`).catch(msg => message.warn(msg))
 }
 
-// 查询文章分类
-export async function articleCategory() {
-  return useGet('/category/list').catch(msg => message.warn(msg))
-}
-
 // 查询文章标签
 export async function articleTag() {
   return useGet('/tag/list').catch(msg => message.warn(msg))
@@ -24,14 +19,18 @@ export async function addTag(data: any) {
   return usePut('/tag', data).catch(msg => message.warn(msg))
 }
 
-// 新增分类
-export async function addCategory(data: any) {
-  return usePut('/category', data).catch(msg => message.warn(msg))
-}
-
 // 上传文章封面
 export async function uploadCover(data: any) {
   return usePost('/article/upload/articleCover', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }).catch(msg => message.warn(msg))
+}
+
+// 上传鸟类3D模型
+export async function uploadThreeDImage(data: any) {
+  return usePost('/article/upload/threeDImage', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -46,6 +45,10 @@ export async function publishArticle(data: any) {
 // 发布错误，删除封面
 export async function deleteCover(articleCoverUrl: string) {
   return useGet('/article/delete/articleCover', { articleCoverUrl }).catch(msg => message.warn(msg))
+}
+// 发布错误，删除3D模型
+export async function deleteThreeD(threeDUrl: string) {
+  return useGet('/article/delete/threeDImage', { threeDUrl }).catch(msg => message.warn(msg))
 }
 
 // 上传文章图片
