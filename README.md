@@ -33,9 +33,6 @@
 
 后台管理员账号密码：fish 123456
 
-fd77585725deb614c915e48329c5f079
-
-https://gitee.com/seachil/typore-bed-diagram
 
 ## 页面展示
 
